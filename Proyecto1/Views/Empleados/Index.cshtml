@@ -1,0 +1,37 @@
+﻿@model List<Empleado>
+
+<section>
+
+    @if (!Model.Any())
+    {
+
+        <p>Agrega el primer empleado!</p>
+
+
+    }
+    else
+    {
+
+        <ul>
+
+            @foreach(var emp in Model)
+            {
+                <li>mana</li>
+                
+            }
+
+            
+        </ul>
+        
+        
+    }
+
+   <li><a href="@Url.Action("CrearEmpleado", "Empleados")">Crear Empleado Nuevo</a></li>
+
+    
+
+    
+
+    
+</section>
+

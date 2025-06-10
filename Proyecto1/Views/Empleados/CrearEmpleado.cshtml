@@ -1,0 +1,35 @@
+﻿@{
+
+    ViewData["nombre"] = "alexander";
+}
+
+<section>
+
+    <h1>@ViewData["nombre"]</h1>
+
+    <div class="form-container">
+
+        <form action="/Empleados/CrearEmpleado" method="post">
+            <label>Cédula:</label>
+            <input type="number" name="cedula" />
+
+            <label>Nombre:</label>
+            <input type="text" name="nombre" />
+
+            <label>Salario por día:</label>
+            <input type="number" name="salarioDia" step="0.01" />
+
+            <button type="submit">Guardar</button>
+        </form>
+
+        
+    </div>
+
+
+
+
+    
+   
+
+    
+</section>
