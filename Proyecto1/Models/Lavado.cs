@@ -4,11 +4,8 @@
     {
         EnProceso,
         Facturado,
-        agendado
+        Agendado
     }
-
-   
-
 
      public abstract class Lavado
     {
@@ -31,12 +28,9 @@
         public abstract void actualizarLavado();
 
         public abstract void buscarServicioLavado();
-
-
-        
+   
       
     }
-
 
     public class LavadoDeluxe : Lavado
     {

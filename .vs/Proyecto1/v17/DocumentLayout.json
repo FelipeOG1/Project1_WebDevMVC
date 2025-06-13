@@ -3,20 +3,36 @@
   "WorkspaceRootPath": "D:\\FundamentosWeb\\Proyecto1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|d:\\fundamentosweb\\proyecto1\\proyecto1\\models\\lavado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\models\\lavado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|d:\\fundamentosweb\\proyecto1\\proyecto1\\repositiories\\clienterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\repositiories\\clienterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|d:\\fundamentosweb\\proyecto1\\proyecto1\\models\\response.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\models\\response.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|d:\\fundamentosweb\\proyecto1\\proyecto1\\repositiories\\empleadorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\repositiories\\empleadorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|d:\\fundamentosweb\\proyecto1\\proyecto1\\controllers\\empleadoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\controllers\\empleadoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|d:\\fundamentosweb\\proyecto1\\proyecto1\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|d:\\fundamentosweb\\proyecto1\\proyecto1\\models\\empleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\models\\empleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|d:\\fundamentosweb\\proyecto1\\proyecto1\\models\\vehiculo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\models\\vehiculo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|d:\\fundamentosweb\\proyecto1\\proyecto1\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|d:\\fundamentosweb\\proyecto1\\proyecto1\\models\\lavado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\models\\lavado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|d:\\fundamentosweb\\proyecto1\\proyecto1\\models\\response.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\models\\response.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|d:\\fundamentosweb\\proyecto1\\proyecto1\\views\\empleados\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -27,16 +43,8 @@
       "RelativeMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\views\\empleados\\crearempleado.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|d:\\fundamentosweb\\proyecto1\\proyecto1\\models\\empleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\models\\empleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|d:\\fundamentosweb\\proyecto1\\proyecto1\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|d:\\fundamentosweb\\proyecto1\\proyecto1\\controllers\\empleadoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|solutionrelative:proyecto1\\controllers\\empleadoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0C40261F-A091-4157-BE65-32DC8FD826C3}|Proyecto1\\Proyecto1.csproj|d:\\fundamentosweb\\proyecto1\\proyecto1\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -58,11 +66,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "site.js",
               "DocumentMoniker": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\wwwroot\\js\\site.js",
               "RelativeDocumentMoniker": "Proyecto1\\wwwroot\\js\\site.js",
@@ -74,51 +82,76 @@
               "IsPinned": true
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EmpleadoRepository.cs",
+              "DocumentMoniker": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Repositiories\\EmpleadoRepository.cs",
+              "RelativeDocumentMoniker": "Proyecto1\\Repositiories\\EmpleadoRepository.cs",
+              "ToolTip": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Repositiories\\EmpleadoRepository.cs",
+              "RelativeToolTip": "Proyecto1\\Repositiories\\EmpleadoRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-10T04:30:12.462Z",
+              "EditorCaption": ""
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ClienteRepository.cs",
+              "DocumentMoniker": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Repositiories\\ClienteRepository.cs",
+              "RelativeDocumentMoniker": "Proyecto1\\Repositiories\\ClienteRepository.cs",
+              "ToolTip": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Repositiories\\ClienteRepository.cs",
+              "RelativeToolTip": "Proyecto1\\Repositiories\\ClienteRepository.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-10T04:29:45.618Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Lavado.cs",
               "DocumentMoniker": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Models\\Lavado.cs",
               "RelativeDocumentMoniker": "Proyecto1\\Models\\Lavado.cs",
               "ToolTip": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Models\\Lavado.cs",
               "RelativeToolTip": "Proyecto1\\Models\\Lavado.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAAAACsAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAABkAAAAAAAAAAAA8wDoAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-09T23:01:47.525Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "Vehiculo.cs",
               "DocumentMoniker": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Models\\Vehiculo.cs",
               "RelativeDocumentMoniker": "Proyecto1\\Models\\Vehiculo.cs",
               "ToolTip": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Models\\Vehiculo.cs",
               "RelativeToolTip": "Proyecto1\\Models\\Vehiculo.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAIwAIAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAqwAQAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-09T22:40:22.224Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "Response.cs",
               "DocumentMoniker": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Models\\Response.cs",
               "RelativeDocumentMoniker": "Proyecto1\\Models\\Response.cs",
               "ToolTip": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Models\\Response.cs",
               "RelativeToolTip": "Proyecto1\\Models\\Response.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T22:17:01.792Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+              "WhenOpened": "2025-06-09T22:17:01.792Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "CrearEmpleado.cshtml",
               "DocumentMoniker": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Views\\Empleados\\CrearEmpleado.cshtml",
               "RelativeDocumentMoniker": "Proyecto1\\Views\\Empleados\\CrearEmpleado.cshtml",
@@ -126,12 +159,11 @@
               "RelativeToolTip": "Proyecto1\\Views\\Empleados\\CrearEmpleado.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-09T02:32:24.255Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T02:32:24.255Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Views\\Empleados\\Index.cshtml",
               "RelativeDocumentMoniker": "Proyecto1\\Views\\Empleados\\Index.cshtml",
@@ -139,8 +171,7 @@
               "RelativeToolTip": "Proyecto1\\Views\\Empleados\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-09T01:14:59.652Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T01:14:59.652Z"
             },
             {
               "$type": "Document",
@@ -157,32 +188,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 2,
               "Title": "EmpleadosController.cs",
               "DocumentMoniker": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Controllers\\EmpleadosController.cs",
               "RelativeDocumentMoniker": "Proyecto1\\Controllers\\EmpleadosController.cs",
               "ToolTip": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Controllers\\EmpleadosController.cs",
               "RelativeToolTip": "Proyecto1\\Controllers\\EmpleadosController.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAAABEAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T00:33:32.462Z"
+              "WhenOpened": "2025-06-09T00:33:32.462Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "Empleado.cs",
               "DocumentMoniker": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Models\\Empleado.cs",
               "RelativeDocumentMoniker": "Proyecto1\\Models\\Empleado.cs",
               "ToolTip": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Models\\Empleado.cs",
               "RelativeToolTip": "Proyecto1\\Models\\Empleado.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADYAAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABcAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-09T00:32:02.525Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "Proyecto1\\Views\\Shared\\_Layout.cshtml",
@@ -194,7 +226,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "Proyecto1\\Views\\Home\\Index.cshtml",
@@ -206,7 +238,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "ErrorViewModel.cs",
               "DocumentMoniker": "D:\\FundamentosWeb\\Proyecto1\\Proyecto1\\Models\\ErrorViewModel.cs",
               "RelativeDocumentMoniker": "Proyecto1\\Models\\ErrorViewModel.cs",
