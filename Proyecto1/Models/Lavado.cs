@@ -21,7 +21,23 @@
 
 
 
+        
+
+        protected Lavado(int id, string tipo, List<string> beneficios, int precio, EstadoLavado estado)
+        {
+            Id = id;
+            Tipo = tipo;
+            Beneficios = beneficios ?? new List<string>();
+            Precio = precio;
+            Estado = estado;
+        }
+
+
+
         public abstract void agendarLavado();
+
+
+        
 
         public abstract void elimininarLavado();
 
@@ -34,6 +50,11 @@
 
     public class LavadoDeluxe : Lavado
     {
+
+        public LavadoDeluxe(int id,EstadoLavado estado)
+        : base(id, "Básico", new List<string> { "Aspirado", "Lavado exterior" }, 20000, estado)
+        {
+        }
 
         public override void agendarLavado()
         {

@@ -9,17 +9,43 @@ namespace Proyecto1.Models
     public class Empleado
     {
 
-        public int cedula { get; set; }
-
-        public string nombre { get; set; }
-
-      
-        public decimal salarioDia { get; set;}
-
+        public int  Cedula { get; set; }
+        public DateTime FechaNacimiento { get; set; }
+        public DateTime FechaIngreso { get; set; }
+        public decimal SalarioPorDia { get; set; }
+        public int DiasVacacionesAcumulados { get; set; }
+        public DateTime? FechaRetiro { get; set; } // Puede ser null si aún trabaja
+        public decimal MontoLiquidacion { get; set; }
 
 
         
-       
+
+        public Empleado(
+            int cedula,
+            DateTime fechaNacimiento,
+            DateTime fechaIngreso,
+            decimal salarioPorDia,
+            int diasVacacionesAcumulados,
+            DateTime? fechaRetiro,
+            decimal montoLiquidacion
+         )
+        {
+            Cedula = cedula;
+            FechaNacimiento = fechaNacimiento;
+            FechaIngreso = fechaIngreso;
+            SalarioPorDia = salarioPorDia;
+            DiasVacacionesAcumulados = diasVacacionesAcumulados;
+            FechaRetiro = fechaRetiro;
+            MontoLiquidacion = montoLiquidacion;
+        }
+
+
+
+
+
+
+
+
 
         private static Dictionary<int,Empleado> _empleados = new Dictionary<int,Empleado>();
        //Ayuda a encontrar cedulas en  O(1) y pasamos cedula por parametro a funcion buscar Empleado Por cedula
@@ -29,24 +55,19 @@ namespace Proyecto1.Models
 
         public Empleado() { }
 
-        public Empleado(int ced, decimal salario_dia,string nom)
-        {
-            cedula = ced;
-            salarioDia = salario_dia;
-            nombre = nom;
-        }
+        
 
         public static int AgregarEmpleado(Empleado empleado)
         {
 
 
-            if (_cedulas.Contains(empleado.cedula))
+            if (_cedulas.Contains(empleado.Cedula))
             {
 
                 return -1;
             }
-            _empleados.Add(empleado.cedula, empleado);
-            _cedulas.Add(empleado.cedula);
+            _empleados.Add(empleado.Cedula, empleado);
+            _cedulas.Add(empleado.Cedula);
            
 
             return _empleados.Count;
