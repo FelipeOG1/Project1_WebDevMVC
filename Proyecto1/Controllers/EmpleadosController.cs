@@ -28,20 +28,97 @@ namespace Proyecto1.Controllers
             
         }
 
-    
-        [HttpPost]
-        public IActionResult CrearEmpleado(Empleado emp)
+           [HttpGet]
+        public IActionResult EditarEmpleado(int cedula)
         {
-            int response=Empleado.AgregarEmpleado(emp);
-                          
 
-          
-            return RedirectToAction("Index");  
+
+
+            Empleado em = Empleado.BuscarEmpleadoPorCedula(cedula);
+
+
+
+
+
+
+            return View(em);
+
+
         }
 
 
+       
+
+        public IActionResult ReemplazarEmpleado(Empleado empleadoActualizado)
+            {
+            if (!ModelState.IsValid)
+            {
+                return View("EditarEmpleado", empleadoActualizado); // En caso de error de validación
+            }
+
+            Empleado original = Empleado.BuscarEmpleadoPorCedula(empleadoActualizado.Cedula);
+
+            if (original == null)
+            {
+                return NotFound(); 
+            }
+
+            // Reemplaza el empleado en el diccionario
+            Empleado.ReemplazarEmpleado(empleadoActualizado); // Este método debes tenerlo tú
+
+            return RedirectToAction("Index");
+
+
+
+
+
+        }
+
+
+       [HttpPost]
+        public IActionResult CrearEmpleado(Empleado emp)
+        {
+
+            if (Empleado.ExisteEmpleado(emp.Cedula))
+            {
+
+                ModelState.AddModelError("Cedula", "Ya existe un Empleado con esa cedula");
+                
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(emp); // Retorna a la misma vista con los errores
+            }
+
+            Empleado.AgregarEmpleado(emp);
+
+
+
+
+
+            return RedirectToAction("Index");  
+        }
 
         
+
+
+
+
+        public IActionResult EliminarEmpleado(int cedula)
+        {
+
+
+
+           int res = Empleado.EliminarEmpleado(cedula);
+
+           return RedirectToAction("Index");
+
+
+
+
+
+
+        }
 
         
 

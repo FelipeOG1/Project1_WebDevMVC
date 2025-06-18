@@ -2,6 +2,13 @@
     ViewData["Title"] = "Home Page";
 }
 
+<section class="bienvenida">
+    <h1>Bienvenido al sistema de gestión de lavados</h1>
+    <p>Aquí podrás llevar un control detallado de empleados, vehículos, y servicios de lavado.</p>
 
+    <div class="acciones-inicio">
+        <a href="@Url.Action("CrearEmpleado", "Empleados")" class="btn-principal">Agregar primer empleado</a>
+        <a href="@Url.Action("CrearVehiculo", "Vehiculos")" class="btn-secundario">Registrar vehículo</a>
+    </div>
+</section>
 
-<script src="~/js/site.js"></script>

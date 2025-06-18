@@ -11,19 +11,41 @@
     }
     else
     {
+        <table class="tabla-empleados">
+    <thead>
+        <tr>
+            <th>Cédula</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Fecha de Ingreso</th>
+            <th>Salario por Día</th>
+            <th>Días de Vacaciones Acumulados</th>
+            <th>Fecha de Retiro</th>
+            <th>Monto de Liquidación</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var empleado in Model)
+        {
+            <tr>
+                <td>@empleado.Cedula</td>
+                <td>@empleado.FechaNacimiento.ToShortDateString()</td>
+                <td>@empleado.FechaIngreso.ToShortDateString()</td>
+                <td>@empleado.SalarioPorDia</td>
+                <td>@empleado.DiasVacacionesAcumulados</td>
+                <td>@(empleado.FechaRetiro.HasValue ? empleado.FechaRetiro.Value.ToShortDateString() : "Activo")</td>
+                <td>@empleado.MontoLiquidacion</td>
+                <td>
+                    <a href="@Url.Action("EditarEmpleado", "Empleados", new { cedula = empleado.Cedula })"class="btn-editar">Editar</a>
+                    <a href="@Url.Action("EliminarEmpleado", "Empleados", new { cedula = empleado.Cedula })" class="btn-eliminar">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+          
 
-        <ul>
-
-            @foreach(var emp in Model)
-            {
-                <li>mana</li>
                 
-            }
-
-            
-        </ul>
-        
-        
     }
 
    <li><a href="@Url.Action("CrearEmpleado", "Empleados")">Crear Empleado Nuevo</a></li>

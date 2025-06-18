@@ -110,32 +110,54 @@ namespace Proyecto1.Models
             
         }
 
-        public static object BuscarEmpleadoPorCedula(int cedula)
+        public static Empleado BuscarEmpleadoPorCedula(int cedula)
         {
 
 
-            var response = new Response<Empleado>
+            if (_cedulas.Contains(cedula))
             {
 
-                Status = false,
-                Message = "No existe un usuario con esa cedula",
-                Content = null
-
-            };
-
-            if(_cedulas.Contains(cedula))
-            {
-
-                response.Status = true;
-                response.Message = "Success";
-                response.Content = _empleados[cedula];
-
-                
+                return _empleados[cedula];
             }
 
-            return response;
+            return null;
 
         }
+
+
+        public static void ReemplazarEmpleado(Empleado nuevo)
+        {
+            //Todo esto tan solo funciona si se respeta la manera en la que se hizo el cliente.
+            if (ExisteEmpleado(nuevo.Cedula))
+            {
+                _empleados[nuevo.Cedula] = nuevo;
+
+            }
+            
+        }
+
+        
+
+
+        public static bool ExisteEmpleado(int cedula)
+        {
+
+            if (_cedulas.Contains(cedula))
+            {
+
+                return true;
+            }
+
+
+            return false;
+
+
+        }
+
+
+
+            
+       
         
 
 

@@ -21,20 +21,11 @@ namespace Proyecto1.Controllers
             return View(lista);
         }
 
-    
-        [HttpPost]
-        public IActionResult CrearEmpleado(Empleado emp)
-        {
-            int response=Empleado.AgregarEmpleado(emp);
-                          
-
-          
-            return RedirectToAction("Index");  
-        }
 
 
 
-        
+
+
 
         
 

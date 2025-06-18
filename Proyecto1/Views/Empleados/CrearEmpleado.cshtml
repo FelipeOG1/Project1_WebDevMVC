@@ -1,48 +1,41 @@
-﻿@{
+﻿@model Empleado
 
-    ViewData["nombre"] = "alexander";
+@{
+
+    ViewData["title"] = "Crear Empleado";
 }
 
-<section>
+<section class="formulario">
 
-    <h1>@ViewData["nombre"]</h1>
+    <h1>@ViewData["title"]</h1>
 
     <div class="form-container">
 
-        <form action="/Empleados/CrearEmpleado" method="post">
-            <label>Cédula:</label>
-            <input type="number" name="cedula" />
+        <form asp-action="CrearEmpleado" method="post">
+            <label for="Cedula">Cédula:</label>
+            <input type="number" id="Cedula" name="Cedula" required />
+            @Html.ValidationMessageFor(m => m.Cedula)
 
-            <label>Nombre:</label>
-            <input type="text" name="nombre" />
+            <label for="FechaNacimiento">Fecha de nacimiento:</label>
+            <input type="date" id="FechaNacimiento" name="FechaNacimiento" required />
 
-            <label>Salario por día:</label>
-            <input type="number" name="salarioDia" step="0.01" />
+            <label for="FechaIngreso">Fecha de ingreso:</label>
+            <input type="date" id="FechaIngreso" name="FechaIngreso" required />
 
-              
-             
-            <label>Fecha de ingreso a la empresa</label>
-            <input type="datetime" name="fechaIngreso">
-              <label>Fecha de ingreso a la empresa</label>
-            <input type="datetime" name="fechaIngreso">
-              <label>Fecha de ingreso a la empresa</label>
-            <input type="datetime" name="fechaIngreso">
-              <label>Fecha de ingreso a la empresa</label>
-            <input type="datetime" name="fechaIngreso">
-            
+            <label for="SalarioPorDia">Salario por día:</label>
+            <input type="number" id="SalarioPorDia" name="SalarioPorDia" step="0.01" required />
 
+            <label for="DiasVacacionesAcumulados">Días de vacaciones acumulados:</label>
+            <input type="number" id="DiasVacacionesAcumulados" name="DiasVacacionesAcumulados" required />
+
+            <label for="FechaRetiro">Fecha de retiro (si aplica):</label>
+            <input type="date" id="FechaRetiro" name="FechaRetiro" />
+
+            <label for="MontoLiquidacion">Monto de liquidación:</label>
+            <input type="number" id="MontoLiquidacion" name="MontoLiquidacion" step="0.01" required />
 
             <button type="submit">Guardar</button>
         </form>
-
-        
     </div>
 
-
-
-
-    
-   
-
-    
 </section>

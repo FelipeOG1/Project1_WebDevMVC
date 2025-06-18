@@ -14,10 +14,10 @@ namespace Proyecto1.Repositiories
 
         public int AgregarEmpelado(Empleado e)
         {
-            if (cedulas.Contains(e.cedula))
+            if (cedulas.Contains(e.Cedula))
             {
 
-                _empleados.Add(e.cedula, e);
+                _empleados.Add(e.Cedula, e);
 
                return _empleados.Count();  
             }
