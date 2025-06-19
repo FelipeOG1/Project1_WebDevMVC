@@ -1,0 +1,45 @@
+﻿@model Cliente
+
+@{
+    ViewData["title"] = "Editar Cliente";
+}
+
+<section class="formulario">
+    <h1>@ViewData["title"]</h1>
+
+    <div class="form-container">
+        <form asp-action="ReemplazarCliente" method="post">
+            <label for="Identificacion">Identificación:</label>
+            <input type="number" id="Identificacion" name="Identificacion" required value="@Model.Identificacion" readonly />
+
+            <label for="NombreCompleto">Nombre completo:</label>
+            <input type="text" id="NombreCompleto" name="NombreCompleto" required value="@Model.NombreCompleto" />
+
+            <label for="Provincia">Provincia:</label>
+            <input type="text" id="Provincia" name="Provincia" required value="@Model.Provincia" />
+
+            <label for="Canton">Cantón:</label>
+            <input type="text" id="Canton" name="Canton" required value="@Model.Canton" />
+
+            <label for="Distrito">Distrito:</label>
+            <input type="text" id="Distrito" name="Distrito" required value="@Model.Distrito" />
+
+            <label for="DireccionExacta">Dirección exacta:</label>
+            <input type="text" id="DireccionExacta" name="DireccionExacta" required value="@Model.DireccionExacta" />
+
+            <label for="Telefono">Teléfono:</label>
+            <input type="text" id="Telefono" name="Telefono" required value="@Model.Telefono" />
+
+            <label for="PreferenciaLavado">Preferencia de lavado:</label>
+            <select id="PreferenciaLavado" name="PreferenciaLavado">
+
+                <option value="0">Semanal</option>
+                <option value="1">Quincenal</option>
+                <option value="2">Mensual</option>
+
+            </select>
+
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+</section>

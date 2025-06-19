@@ -37,12 +37,7 @@ namespace Proyecto1.Controllers
             Empleado em = Empleado.BuscarEmpleadoPorCedula(cedula);
 
 
-
-
-
-
             return View(em);
-
 
         }
 

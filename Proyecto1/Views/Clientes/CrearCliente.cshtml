@@ -1,0 +1,52 @@
+﻿@model Cliente
+
+
+@{
+
+    ViewData["mama"] = "Aqui se crean los clientes";
+}
+
+
+<h1>@ViewData["mama"]</h1>
+
+<section class="formulario">
+    <h1>@ViewData["Title"] ?? "Formulario de Cliente"</h1>
+
+    <div class="form-container">
+        <form asp-action="CrearCliente" method="post">
+            <label for="Identificacion">Identificación:</label>
+            <input type="number" id="Identificacion" name="Identificacion" required />
+            @Html.ValidationMessageFor(m => m.Identificacion)
+
+            <label for="NombreCompleto">Nombre completo:</label>
+            <input type="text" id="NombreCompleto" name="NombreCompleto" required />
+
+            <label for="Provincia">Provincia:</label>
+            <input type="text" id="Provincia" name="Provincia"  required />
+
+            <label for="Canton">Cantón:</label>
+            <input type="text" id="Canton" name="Canton"  required />
+
+            <label for="Distrito">Distrito:</label>
+            <input type="text" id="Distrito" name="Distrito"required />
+
+            <label for="DireccionExacta">Dirección exacta:</label>
+            <input type="text" id="DireccionExacta" name="DireccionExacta" required />
+
+            <label for="Telefono">Teléfono:</label>
+            <input type="text" id="Telefono" name="Telefono" required />
+            <label for="PreferenciaLavado">Preferencia de lavado:</label>
+            <select id="PreferenciaLavado" name="PreferenciaLavado">
+
+                <option value="0">Semanal</option>
+                <option value="1">Quincenal</option>
+                <option value="2">Mensual</option>
+
+            </select> 
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+</section>
+
+
+

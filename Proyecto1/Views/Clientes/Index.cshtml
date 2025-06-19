@@ -1,0 +1,76 @@
+﻿@model List<Cliente>
+
+    
+
+
+@{
+
+    ViewData["mama"] ="Aqui se muestran todos los clientes";
+}
+
+
+
+
+<h1>@ViewData["mama"]</h1>
+
+<section>
+
+    @if (!Model.Any())
+    {
+
+        <a href="@Url.Action("CrearCliente", "Clientes")">Crear Cliente Nuevo</a>
+
+
+
+    }
+    else
+    {
+        <table class="tabla-index">
+    <thead>
+        <tr>
+            <th>Identificación</th>
+            <th>Nombre</th>
+            <th>Provincia</th>
+            <th>Cantón</th>
+            <th>Distrito</th>
+            <th>Dirección Exacta</th>
+            <th>Teléfono</th>
+            <th>Preferencia de Lavado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cliente in Model)
+        {
+            <tr>
+                <td>@cliente.Identificacion</td>
+                <td>@cliente.NombreCompleto</td>
+                <td>@cliente.Provincia</td>
+                <td>@cliente.Canton</td>
+                <td>@cliente.Distrito</td>
+                <td>@cliente.DireccionExacta</td>
+                <td>@cliente.Telefono</td>
+                <td>@cliente.PreferenciaLavado</td>
+                <td>
+                    <a href="@Url.Action("EditarCliente", "Clientes", new { identificacion = cliente.Identificacion })" class="btn-editar">Editar</a>
+                    <a href="@Url.Action("EliminarCliente", "Clientes", new { identificacion = cliente.Identificacion })" class="btn-eliminar">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+     <button onclick="location.href='@Url.Action("CrearCliente", "Clientes")'">Crear cliente</button>
+          
+        
+        
+    }
+
+
+
+
+
+
+
+</section>
+

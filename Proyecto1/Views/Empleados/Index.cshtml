@@ -5,13 +5,13 @@
     @if (!Model.Any())
     {
 
-        <p>Agrega el primer empleado!</p>
+        <a href="@Url.Action("CrearEmpleado", "Empleados")">Crear Empleado Nuevo</a>
 
 
     }
     else
     {
-        <table class="tabla-empleados">
+        <table class="tabla-index">
     <thead>
         <tr>
             <th>Cédula</th>
@@ -43,12 +43,13 @@
         }
     </tbody>
 </table>
+
+<button >Crea</button>
           
 
                 
     }
 
-   <li><a href="@Url.Action("CrearEmpleado", "Empleados")">Crear Empleado Nuevo</a></li>
 
     
 

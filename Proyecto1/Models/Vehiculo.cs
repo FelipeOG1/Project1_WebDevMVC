@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Proyecto1.Utils;
+using System.Data;
 using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.Arm;
@@ -66,23 +67,29 @@ namespace Proyecto1.Models
             return _vehiculos.Values.ToList();
         }
 
-        public static Response<Vehiculo> BuscarVehiculoPorPlaca(string placa)
+        public static Vehiculo BuscarVehiculoPorPlaca(string placa)
         {
-            var response = new Response<Vehiculo>
-            {
-                Status = false,
-                Message = "No existe un vehículo con esa placa",
-                Content = null
-            };
 
-            if (_placas.Contains(placa))
+            if (ExisteVehiculo(placa))
             {
-                response.Status = true;
-                response.Message = "Vehículo encontrado";
-                response.Content = _vehiculos[placa];
+
+                return _vehiculos[placa];
             }
 
-            return response;
+            return null;
+        
+        
+        }
+
+
+        public static bool ExisteVehiculo(string placa)
+        {
+
+            if (_placas.Contains(placa)) return true;
+
+            return false;
+
+            
         }
 
 
