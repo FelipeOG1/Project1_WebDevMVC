@@ -11,7 +11,7 @@
 
     <div class="form-container">
 
-        <form asp-action="CrearEmpleado" method="post">
+        <form asp-action="CrearEmpleado" asp-controller="Empleados" method="post">
             <label for="Cedula">Cédula:</label>
             <input type="number" id="Cedula" name="Cedula" required />
             @Html.ValidationMessageFor(m => m.Cedula)

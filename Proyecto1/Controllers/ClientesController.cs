@@ -51,30 +51,47 @@ namespace Proyecto1.Controllers
         }
 
 
-       
 
-        public IActionResult ReemplazarCliente( Cliente ClienteActualizado)
-            {
+
+        public IActionResult ReemplazarCliente(Cliente ClienteActualizado)
+        {
             if (!ModelState.IsValid)
             {
-                return View("EditarCliente", ClienteActualizado);             }
+                return View("EditarCliente", ClienteActualizado);
+            }
 
-             Cliente original = Cliente.BuscarCliente(ClienteActualizado.Identificacion);
+            Cliente original = Cliente.BuscarCliente(ClienteActualizado.Identificacion);
 
             if (original == null)
             {
-                return NotFound(); 
+                return NotFound();
             }
 
-            Cliente.ReemplazarCliente(ClienteActualizado); 
+            Cliente.ReemplazarCliente(ClienteActualizado);
 
             return RedirectToAction("Index");
 
 
+        }
 
 
 
+      
 
+        [HttpPost]
+        public IActionResult BuscarCliente(int identificacion)
+        {
+
+            if (Cliente.ExisteCliente(identificacion))
+            {
+
+                return RedirectToAction("EditarCLiente", new {identificacion = identificacion});
+            }
+
+            TempData["Mensaje"] = "No existe un usuario con esa cedula";
+            return RedirectToAction("Index");
+
+            
         }
 
 

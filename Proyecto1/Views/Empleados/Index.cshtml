@@ -5,12 +5,38 @@
     @if (!Model.Any())
     {
 
-        <a href="@Url.Action("CrearEmpleado", "Empleados")">Crear Empleado Nuevo</a>
+         <section class="hero">
+
+            <div class="hero-content">
+                <h1>Aún no has agregado ningún empleado</h1>
+                <p>Empieza ahora agregando tu primer Empleado para gestionar tus lavados.</p>
+                <a href="@Url.Action("CrearEmpleado", "Empleados")" class="btn-principal">Agregar primer empleado</a>
+            </div>
+
+            </section>
 
 
     }
     else
     {
+
+         <div class="search-container">
+       <form asp-action="BuscarEmpleado" asp-controller="Empleados" method="post">
+        <label for="identificacion">Buscar Empleado por ID:</label>
+        <input type="number" id="cedula" name="cedula" required />
+
+        <button type="submit">Buscar empleado</button>
+
+        @if (TempData["Mensaje"] != null)
+        {
+            <div style="color: red; margin-top: 10px;">
+                <b>@TempData["Mensaje"]</b>
+            </div>
+        }
+    </form>
+</div>
+
+
         <table class="tabla-index">
     <thead>
         <tr>
@@ -44,8 +70,13 @@
     </tbody>
 </table>
 
-<button >Crea</button>
-          
+
+        <div class="tableIndex-button-container">
+           <button onclick="location.href='@Url.Action("CrearEmpleado", "Empleados")'">Agregar Empleado</button>
+
+
+        </div>
+
 
                 
     }

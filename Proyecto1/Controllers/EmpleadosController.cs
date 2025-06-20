@@ -69,8 +69,24 @@ namespace Proyecto1.Controllers
 
         }
 
+        [HttpPost]
+        public IActionResult BuscarEmpleado(int cedula)
+        {
 
-       [HttpPost]
+            if (Empleado.ExisteEmpleado(cedula))
+            {
+
+                return RedirectToAction("EditarEmpleado", new { cedula = cedula });
+
+            }
+
+            TempData["Mensaje"] = "No existe ningun empleado con esa cedula";
+
+            return RedirectToAction("Index");   
+        }
+
+
+        [HttpPost]
         public IActionResult CrearEmpleado(Empleado emp)
         {
 
