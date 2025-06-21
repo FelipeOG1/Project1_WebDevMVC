@@ -1,0 +1,53 @@
+﻿
+<section class="formulario">
+
+    <form asp-action="CrearLavado" method="post">
+        <label for="TipoNombre">Tipo de Lavado:</label>
+        <select id="TipoNombre" name="TipoNombre">
+            <option value="Básico">Básico</option>
+            <option value="Premium">Premium</option>
+            <option value="Deluxe">Deluxe</option>
+            <option value="La Joya">La Joya</option>
+        </select>
+
+        <label for="Placa">Placa:</label>
+        <input type="text" name="Placa" required />
+
+        <label for="IdCliente">ID Cliente:</label>
+        <input type="number" name="IdCliente" required />
+
+        <label for="Estado">Estado:</label>
+        <select name="Estado">
+            <option value="0">En Proceso</option>
+            <option value="1">Facturado</option>
+            <option value="2">Agendado</option>
+        </select>
+
+        <div style="display:none" id="JoyaDiv">
+            <label>Precion Acordado</label>
+            <input type="number" name="Precio" />
+        </div>
+        <button type="submit">Crear lavado</button>
+    </form>
+
+
+</section>
+
+<script>
+
+    let select = document.getElementById("TipoNombre")
+
+    let div = document.getElementById("JoyaDiv")
+
+    select.addEventListener("change",()=>{
+
+        if(select.value=="La Joya"){
+
+            div.style= "display:inline"
+        }else{
+
+            div.style.display = "none";
+        }
+
+    })
+</script>

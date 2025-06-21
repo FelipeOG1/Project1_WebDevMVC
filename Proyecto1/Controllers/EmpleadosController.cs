@@ -48,8 +48,7 @@ namespace Proyecto1.Controllers
             {
             if (!ModelState.IsValid)
             {
-                return View("EditarEmpleado", empleadoActualizado); // En caso de error de validación
-            }
+                return View("EditarEmpleado", empleadoActualizado);             }
 
             Empleado original = Empleado.BuscarEmpleadoPorCedula(empleadoActualizado.Cedula);
 
@@ -58,9 +57,7 @@ namespace Proyecto1.Controllers
                 return NotFound(); 
             }
 
-            // Reemplaza el empleado en el diccionario
-            Empleado.ReemplazarEmpleado(empleadoActualizado); // Este método debes tenerlo tú
-
+            Empleado.ReemplazarEmpleado(empleadoActualizado);
             return RedirectToAction("Index");
 
 

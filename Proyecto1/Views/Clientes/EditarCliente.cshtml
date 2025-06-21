@@ -31,15 +31,17 @@
             <input type="text" id="Telefono" name="Telefono" required value="@Model.Telefono" />
 
             <label for="PreferenciaLavado">Preferencia de lavado:</label>
-            <select id="PreferenciaLavado" name="PreferenciaLavado">
 
-                <option value="0">Semanal</option>
-                <option value="1">Quincenal</option>
-                <option value="2">Mensual</option>
+            @Html.DropDownListFor(m => m.PreferenciaLavado, new List<SelectListItem> {
+            new SelectListItem { Text = "Semanal", Value = "0" },
+            new SelectListItem { Text = "Quincenal", Value = "1" },
 
-            </select>
+            new SelectListItem{Text = "Mensual",Value="2"}
 
-            <button type="submit">Guardar</button>
+                        })
+
+
+           <button type="submit">Guardar</button>
         </form>
     </div>
 </section>

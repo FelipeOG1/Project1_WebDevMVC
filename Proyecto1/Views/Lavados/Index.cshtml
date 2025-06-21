@@ -1,0 +1,39 @@
+﻿@model List<Lavado>
+
+
+
+@if (!Model.Any())
+{
+
+    <h1>No se tiene lavados por le momento</h1>
+
+    <a href="@Url.Action("CrearLavado", "Lavados")" class="btn-principal">Agregar primer lavado</a>
+
+
+}
+else
+{
+
+    @foreach(var lavado in Model)
+    {
+        <ul>
+
+            <li>@lavado.Id</li>
+
+            <li>@lavado.Tipo.nombre</li>
+
+            <li>@lavado.Tipo.precio</li>
+
+       
+            <a href="@Url.Action("CrearLavado", "Lavados")" class="btn-principal">Agregar nuevo lavado</a>
+
+
+        </ul>
+       
+    }
+
+
+
+}
+
+

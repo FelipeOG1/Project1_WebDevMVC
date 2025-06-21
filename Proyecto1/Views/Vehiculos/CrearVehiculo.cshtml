@@ -1,0 +1,55 @@
+﻿@model Vehiculo
+
+@{
+
+    string title  = "aqui se crea un vehiculo";
+}
+
+
+
+
+<section class="formulario">
+
+    <h1>@title</h1>
+
+    <div class="form-container">
+
+
+        <form asp-action="CrearVehiculo" asp-controller="Vehiculos" method="post">
+            <label for="Placa">Placa:</label>
+            <input type="text" id="Placa" name="Placa" required />
+            @Html.ValidationMessageFor(m => m.Placa)
+
+            <label for="Marca">Marca:</label>
+            <input type="text" id="Marca" name="Marca" required />
+
+            <label for="Modelo">Modelo:</label>
+            <input type="text" id="Modelo" name="Modelo" required />
+
+            <label for="Traccion">Tracción:</label>
+            <input type="text" id="Traccion" name="Traccion" required />
+
+            <label for="Color">Color:</label>
+            <input type="text" id="Color" name="Color" required />
+
+            <label for="UltimaFechaAtencion">Última fecha de atención:</label>
+            <input type="date" id="UltimaFechaAtencion" name="UltimaFechaAtencion" required />
+
+            <label for="TratamientoEspecialNano">¿Tiene tratamiento especial nano?</label>
+            <select id="TratamientoEspecialNano" name="TratamientoEspecialNano" required>
+                <option value="false">No</option>
+                <option value="true">Sí</option>
+            </select>
+
+            <button type="submit">Guardar vehículo</button>
+        </form>
+    
+    
+    
+    </div>
+
+</section>
+
+
+
+

@@ -1,0 +1,49 @@
+﻿@model Vehiculo
+
+@{
+    ViewData["title"] = "Editar Vehículo";
+
+
+
+
+
+
+   
+}
+
+<section class="formulario">
+    <h1>@ViewData["title"]</h1>
+
+    <div class="form-container">
+        <form asp-action="ReemplazarVehiculo" method="post">
+            <label for="Placa">Placa:</label>
+            <input type="text" id="Placa" name="Placa" required value="@Model.Placa" readonly />
+
+            <label for="Marca">Marca:</label>
+            <input type="text" id="Marca" name="Marca" required value="@Model.Marca" />
+
+            <label for="Modelo">Modelo:</label>
+            <input type="text" id="Modelo" name="Modelo" required value="@Model.Modelo" />
+
+            <label for="Traccion">Tracción:</label>
+            <input type="text" id="Traccion" name="Traccion" required value="@Model.Traccion" />
+
+            <label for="Color">Color:</label>
+            <input type="text" id="Color" name="Color" required value="@Model.Color" />
+
+            <label for="UltimaFechaAtencion">Última fecha de atención:</label>
+            <input type="date" id="UltimaFechaAtencion" name="UltimaFechaAtencion" required value="@Model.UltimaFechaAtencion.ToString("yyyy-MM-dd")" />
+
+            <label for="TratamientoEspecialNano">¿Tratamiento especial nano?</label>
+            @Html.DropDownListFor(m => m.TratamientoEspecialNano, new List<SelectListItem> {
+                        new SelectListItem { Text = "Sí", Value = "true" },
+                        new SelectListItem { Text = "No", Value = "false" }
+                        })
+           
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+</section>
+
+
+

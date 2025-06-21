@@ -18,21 +18,9 @@ namespace Proyecto1.Models
         public bool TratamientoEspecialNano { get; set; } // true = sí, false = no
 
 
-        public Vehiculo(string placa, string marca, string modelo, string traccion, string color, DateTime ultimaFechaAtencion, bool tratamientoEspecialNano)
-        {
-            Placa = placa;
-            Marca = marca;
-            Modelo = modelo;
-            Traccion = traccion;
-            Color = color;
-            UltimaFechaAtencion = ultimaFechaAtencion;
-            TratamientoEspecialNano = tratamientoEspecialNano;
-        }
-
-
         public Vehiculo() { }
 
-
+      
         private static Dictionary<string, Vehiculo> _vehiculos = new Dictionary<string, Vehiculo>();
         private static HashSet<string> _placas = new HashSet<string>();
 
@@ -94,7 +82,7 @@ namespace Proyecto1.Models
 
 
 
-       public static Vehiculo EditarVehiculo(Vehiculo ve)
+       public static Vehiculo ReemplazarVehiculo(Vehiculo ve)
         {
 
             if (_placas.Contains(ve.Placa))
