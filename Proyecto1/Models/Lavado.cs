@@ -15,14 +15,15 @@ namespace Proyecto1.Models
     public struct TipoLavado
     {
         public string nombre;
-        public List<string> prestaciones;
+        public List<string>prestaciones;
         public int? precio;
 
     }
+
     public class Lavado
     {
 
-        private static int idCounter = 0;
+        private static int idCounter = 1;
 
         public string Placa { get; set; }
 
@@ -31,7 +32,9 @@ namespace Proyecto1.Models
         public EstadoLavado Estado { get; set; }
 
         public TipoLavado Tipo { get; set; }
-        public int Id { get; }
+        public int Id { get; set; }
+
+
         
 
 
@@ -122,7 +125,7 @@ namespace Proyecto1.Models
         }
 
 
-        public bool ExisteLavado(int id)
+        public static bool ExisteLavado(int id)
         {
 
             if (_ids.Contains(id)) return true;
@@ -137,6 +140,58 @@ namespace Proyecto1.Models
 
            return _lavados.Values.ToList();
             
+        }
+
+        public static Lavado BucarLavadoPorId(int id)
+        {
+
+
+            if (ExisteLavado(id))
+            {
+
+                return _lavados[id];
+
+            }
+            else
+            {
+
+                return null;
+            }
+        }
+
+
+        public static int ReemplazarLavado(Lavado nuevoLavado) {
+
+            int id=nuevoLavado.Id;
+            if (ExisteLavado(id)){
+
+                _lavados[id] = nuevoLavado;
+
+                return _lavados.Count();
+
+
+            }
+
+            return -1;
+        
+        }
+
+        public static int EliminarLavado(int id)
+        {
+
+            if (ExisteLavado(id))
+            {
+                _lavados.Remove(id);
+
+                return _lavados.Count(); 
+            }
+            else
+            {
+
+                return -1;
+            }
+
+
         }
 
 

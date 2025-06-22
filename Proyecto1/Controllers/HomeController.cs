@@ -15,7 +15,12 @@ namespace Proyecto1.Controllers
 
         public IActionResult Index()
         {
-            return View();
+
+            List <Vehiculo> listaVehiculos = Vehiculo.MostrarVehiculos();
+            List<Empleado>listaEmpleados= Empleado.MostrarEmpleados();
+                        
+            
+            return View(listaVehiculos);
         }
 
         public IActionResult Privacy()

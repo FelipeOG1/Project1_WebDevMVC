@@ -6,28 +6,35 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
-    <header class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-logo">
-                <a href="@Url.Action("Index", "Home")">LavadoCR</a>
+    
+ 
+    <div class="layout-wrapper">
+
+        <header class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-logo">
+                    <a href="@Url.Action("Index", "Home")">LavadoCR</a>
+                </div>
+                <nav class="navbar-links">
+                    <a href="@Url.Action("Index", "Clientes")">Clientes</a>
+                    <a href="@Url.Action("Index", "Empleados")">Empleados</a>
+                    <a href="@Url.Action("Index", "Vehiculos")">Vehículos</a>
+
+                    <a href="@Url.Action("Index", "Lavados")">Lavados</a>
+
+
+                </nav>
             </div>
-            <nav class="navbar-links">
-                <a href="@Url.Action("Index", "Clientes")">Clientes</a>
-                <a href="@Url.Action("Index", "Empleados")">Empleados</a>
-                <a href="@Url.Action("Index", "Vehiculos")">Vehículos</a>
+        </header>
 
-                <a href="@Url.Action("Index", "Lavados")">Lavados</a>
+        <main role="main" class="container">
+            @RenderBody()
+        </main>
 
-                
-            </nav>
-        </div>
-    </header>
-       <main role="main" class="container">
-        @RenderBody()
-    </main>
+       
+     </div>
+        
+      
 
-    <footer>
-        <p>© 2025 Mi App Lavado Vehículos</p>
-    </footer>
-</body>
+   </body>
 </html>

@@ -1,0 +1,124 @@
+﻿@model Lavado
+
+
+<span id="tipo" style="display:none">@Model.Tipo.nombre</span>
+<section class="formulario">
+
+    <h1>Editar Lavado</h1>
+ 
+
+    <div class="form-container">
+
+       
+        <form asp-action="ReemplazarLavado" asp-controller="Lavados" method="post">
+            <label for="TipoNombre">Tipo de Lavado:</label>
+            <select id="TipoNombre" name="TipoNombre" class="minima-dropdown">
+                <option value="Básico">Básico</option>
+                <option value="Premium">Premium</option>
+                <option value="Deluxe">Deluxe</option>
+                <option value="La Joya">La Joya</option>
+            </select>
+
+            <label for="Placa">Placa:</label>
+            <input type="text" name="Placa" value="@Model.Placa" required />
+
+            <label for="IdCliente">ID Cliente:</label>
+            <input type="number" name="IdCliente" value="@Model.IdCLiente" required />
+
+            <label for="Estado">Estado:</label>
+            <select name="Estado" class="minima-dropdown">
+                <option value="0">En Proceso</option>
+                <option value="1">Facturado</option>
+                <option value="2">Agendado</option>
+            </select>
+
+            <div style="display:none" id="JoyaDiv">
+                <label for="Precio" style="margin-bottom:5px">Precion Acordado</label>
+                <input type="number" name="Precio" id="inputPrecio" value="@Model.Tipo.precio"required/>
+            </div>
+
+            <input value=@Model.Id name="id" type="hidden">
+            <button type="submit">Crear lavado</button>
+        </form>
+
+
+
+    </div>
+
+
+
+</section>
+
+<script>
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+      
+
+      let nombreTipo=document.getElementById("tipo").innerHTML
+
+      let select = document.getElementById("TipoNombre");
+
+      let inputPrecio=document.getElementById("inputPrecio")
+
+      switch(nombreTipo){
+
+            case "Básico":
+
+                select.selectedIndex=0;
+            break;
+
+          case "Premium":
+                select.selectedIndex=1;
+               break;
+          case "Deluxe":
+              select.selectedIndex = 2;
+
+              break;
+
+          case "La Joya":
+
+              select.selectedIndex = 3;
+
+              div.style = "display:flex;flex-direction:column"
+
+              inputPrecio.required = true;
+
+              break;	
+         default:
+
+         select.selectedIndex=0;
+
+          
+      }
+               
+});
+
+    let select = document.getElementById("TipoNombre")
+
+    let div = document.getElementById("JoyaDiv")
+
+    select.addEventListener("change",()=>{
+
+        if(select.value=="La Joya"){
+
+            div.style = "display:flex;flex-direction:column"
+
+            inputPrecio.required = true;
+
+            inputPrecio.value = " ";
+
+        } else {
+
+           
+
+            div.style.display = "none";
+
+            inputPrecio.value = " ";
+            inputPrecio.required=false;
+
+           
+        }
+   
+    })
+</script>

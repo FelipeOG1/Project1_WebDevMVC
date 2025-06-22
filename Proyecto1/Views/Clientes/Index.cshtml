@@ -13,7 +13,7 @@
             <div class="hero-content">
                 <h1>Aún no has agregado ningún cliente</h1>
                 <p>Empieza ahora agregando tu primer cliente para gestionar tus lavados.</p>
-                <a href="@Url.Action("CrearCliente", "Clientes")" class="btn-principal">Agregar primer cliente</a>
+                <a href="@Url.Action("CrearCliente", "Clientes")" class="btn-principal">Agregar el primer cliente</a>
             </div>
 
             </section>
@@ -66,8 +66,13 @@
                 <td>@cliente.Telefono</td>
                 <td>@cliente.PreferenciaLavado</td>
                 <td>
-                    <a href="@Url.Action("EditarCliente", "Clientes", new { identificacion = cliente.Identificacion })" class="btn-editar">Editar</a>
+
+                    <div class="acciones">
+                        <a href="@Url.Action("EditarCliente", "Clientes", new { identificacion = cliente.Identificacion })" class="btn-editar">Editar</a>
                     <a href="@Url.Action("EliminarCliente", "Clientes", new { identificacion = cliente.Identificacion })" class="btn-eliminar">Eliminar</a>
+
+                    </div>
+                    
                 </td>
             </tr>
         }

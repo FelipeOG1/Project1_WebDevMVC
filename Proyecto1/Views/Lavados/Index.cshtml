@@ -4,33 +4,98 @@
 
 @if (!Model.Any())
 {
+    <section class="hero">
 
-    <h1>No se tiene lavados por le momento</h1>
+        <div class="hero-content">
+            <h1>Aún no has agregado ningún Lavado</h1>
+            <p>Empieza ahora agregando tu primer Lavado para gestionar tus lavados.</p>
+            <a href="@Url.Action("CrearLavado", "Lavados")" class="btn-principal">Agregar el primer lavado</a>
+        </div>
 
-    <a href="@Url.Action("CrearLavado", "Lavados")" class="btn-principal">Agregar primer lavado</a>
-
-
+    </section>
+  
 }
 else
 {
+    <div class="search-container">
+        <form asp-action="BuscarLavado" asp-controller="Lavados" method="post">
+            <label for="identificacion">Buscar Lavado por Id:</label>
+            <input type="number" id="idLavado" name="idLavado" required />
 
-    @foreach(var lavado in Model)
-    {
-        <ul>
+            <button type="submit">Buscar empleado</button>
 
-            <li>@lavado.Id</li>
-
-            <li>@lavado.Tipo.nombre</li>
-
-            <li>@lavado.Tipo.precio</li>
-
-       
-            <a href="@Url.Action("CrearLavado", "Lavados")" class="btn-principal">Agregar nuevo lavado</a>
+            @if (TempData["Mensaje"] != null)
+            {
+                <div style="color: red; margin-top: 10px;">
+                    <b>@TempData["Mensaje"]</b>
+                </div>
+            }
+        </form>
+    </div>
 
 
-        </ul>
-       
-    }
+
+    <table class="tabla-index">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Placa</th>
+                <th>ID Cliente</th>
+                <th>Estado</th>
+                <th>Tipo de Lavado</th>
+                <th style="padding-left:20px">Prestaciones</th>
+                <th>Precio sin IVA</th>
+                <th>Precio con IVA</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var lavado in Model)
+            {
+                <tr>
+                    <td>@lavado.Id</td>
+                    <td>@lavado.Placa</td>
+                    <td>@lavado.IdCLiente</td>
+                    <td>@lavado.Estado</td>
+                    <td>@lavado.Tipo.nombre</td>
+                    <td>
+                        @if (lavado.Tipo.prestaciones != null && lavado.Tipo.prestaciones.Count > 0)
+                        {
+                            <div class="prestaciones-tags">
+                                @foreach (var prestacion in lavado.Tipo.prestaciones)
+                                {
+                                    <span class="tag">@prestacion</span>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <span>—</span>
+                        }
+                   </td>
+                    <td>@(lavado.Tipo.precio.HasValue ? $"₡{lavado.Tipo.precio.Value:N0}" : "No asignado")</td>
+                    <td>@($"₡{lavado.Tipo.precio*30}")</td>
+
+                    <div class="acciones">
+
+                    </div>
+                    <td>
+                        <div class="acciones">
+                            <a href="@Url.Action("EditarLavado", "Lavados", new { id = lavado.Id })" class="btn-editar">Editar</a>
+                            <a href="@Url.Action("EliminarLavado", "Lavados", new { id = lavado.Id })" class="btn-eliminar">Eliminar</a>
+
+
+                        </div>
+                   </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="tableIndex-button-container">
+        <button onclick="location.href='@Url.Action("CrearLavado", "Lavados")'">Agregar Lavado</button>
+    </div>
+
 
 
 

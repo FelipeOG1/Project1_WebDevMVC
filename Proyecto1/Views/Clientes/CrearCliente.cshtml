@@ -1,16 +1,7 @@
 ﻿@model Cliente
 
-
-@{
-
-    ViewData["mama"] = "Aqui se crean los clientes";
-}
-
-
-<h1>@ViewData["mama"]</h1>
-
 <section class="formulario">
-    <h1>@ViewData["Title"] ?? "Formulario de Cliente"</h1>
+    <h1>Agregar Cliente</h1>
 
     <div class="form-container">
         <form asp-controller="Clientes" asp-action="CrearCliente" method="post">

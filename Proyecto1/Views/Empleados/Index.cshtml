@@ -10,7 +10,7 @@
             <div class="hero-content">
                 <h1>Aún no has agregado ningún empleado</h1>
                 <p>Empieza ahora agregando tu primer Empleado para gestionar tus lavados.</p>
-                <a href="@Url.Action("CrearEmpleado", "Empleados")" class="btn-principal">Agregar primer empleado</a>
+                <a href="@Url.Action("CrearEmpleado", "Empleados")" class="btn-principal">Agregar el primer empleado</a>
             </div>
 
             </section>
@@ -62,8 +62,11 @@
                 <td>@(empleado.FechaRetiro.HasValue ? empleado.FechaRetiro.Value.ToShortDateString() : "Activo")</td>
                 <td>@empleado.MontoLiquidacion</td>
                 <td>
-                    <a href="@Url.Action("EditarEmpleado", "Empleados", new { cedula = empleado.Cedula })"class="btn-editar">Editar</a>
-                    <a href="@Url.Action("EliminarEmpleado", "Empleados", new { cedula = empleado.Cedula })" class="btn-eliminar">Eliminar</a>
+                    <div class="acciones">
+                          <a href="@Url.Action("EditarEmpleado", "Empleados", new { cedula = empleado.Cedula })"class="btn-editar">Editar</a>
+                            <a href="@Url.Action("EliminarEmpleado", "Empleados", new { cedula = empleado.Cedula })" class="btn-eliminar">Eliminar</a>
+
+                    </div>
                 </td>
             </tr>
         }
