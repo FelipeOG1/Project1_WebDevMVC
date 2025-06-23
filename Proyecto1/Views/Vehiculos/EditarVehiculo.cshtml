@@ -17,19 +17,19 @@
     <div class="form-container">
         <form asp-action="ReemplazarVehiculo" method="post">
             <label for="Placa">Placa:</label>
-            <input type="text" id="Placa" name="Placa" required value="@Model.Placa" readonly />
+            <input type="text" id="Placa" name="Placa" required value="@Model.Placa" maxlength="20" readonly />
 
             <label for="Marca">Marca:</label>
-            <input type="text" id="Marca" name="Marca" required value="@Model.Marca" />
+            <input type="text" id="Marca" name="Marca" required maxlength="100" value="@Model.Marca" />
 
             <label for="Modelo">Modelo:</label>
-            <input type="text" id="Modelo" name="Modelo" required value="@Model.Modelo" />
+            <input type="text" id="Modelo" name="Modelo" required maxlength="100" value="@Model.Modelo" />
 
             <label for="Traccion">Tracción:</label>
-            <input type="text" id="Traccion" name="Traccion" required value="@Model.Traccion" />
+            <input type="text" id="Traccion" name="Traccion" required maxlength="100" value="@Model.Traccion" />
 
             <label for="Color">Color:</label>
-            <input type="text" id="Color" name="Color" required value="@Model.Color" />
+            <input type="text" id="Color" name="Color" required maxlength="20" value="@Model.Color" />
 
             <label for="UltimaFechaAtencion">Última fecha de atención:</label>
             <input type="date" id="UltimaFechaAtencion" name="UltimaFechaAtencion" required value="@Model.UltimaFechaAtencion.ToString("yyyy-MM-dd")" />

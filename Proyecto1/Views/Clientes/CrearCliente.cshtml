@@ -10,22 +10,22 @@
             @Html.ValidationMessageFor(m => m.Identificacion)
 
             <label for="NombreCompleto">Nombre completo:</label>
-            <input type="text" id="NombreCompleto" name="NombreCompleto" required />
+            <input type="text" id="NombreCompleto" name="NombreCompleto" maxlength="100" required />
 
             <label for="Provincia">Provincia:</label>
-            <input type="text" id="Provincia" name="Provincia"  required />
+            <input type="text" id="Provincia" name="Provincia" maxlength="100" required />
 
             <label for="Canton">Cantón:</label>
-            <input type="text" id="Canton" name="Canton"  required />
+            <input type="text" id="Canton" name="Canton" maxlength="100" required />
 
             <label for="Distrito">Distrito:</label>
-            <input type="text" id="Distrito" name="Distrito"required />
+            <input type="text" id="Distrito" name="Distrito" maxlength="100" required />
 
             <label for="DireccionExacta">Dirección exacta:</label>
-            <input type="text" id="DireccionExacta" name="DireccionExacta" required />
+            <input type="text" id="DireccionExacta" name="DireccionExacta" maxlength="100" required />
 
             <label for="Telefono">Teléfono:</label>
-            <input type="text" id="Telefono" name="Telefono" required />
+            <input type="number" id="Telefono" name="Telefono" required />
             <label for="PreferenciaLavado">Preferencia de lavado:</label>
             <select id="PreferenciaLavado" name="PreferenciaLavado">
 

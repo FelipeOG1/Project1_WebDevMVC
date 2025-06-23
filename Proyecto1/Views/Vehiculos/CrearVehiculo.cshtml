@@ -11,20 +11,20 @@
 
         <form asp-action="CrearVehiculo" asp-controller="Vehiculos" method="post">
             <label for="Placa">Placa:</label>
-            <input type="text" id="Placa" name="Placa" required />
+            <input type="text" id="Placa" name="Placa" maxlength="20" required />
             @Html.ValidationMessageFor(m => m.Placa)
 
             <label for="Marca">Marca:</label>
-            <input type="text" id="Marca" name="Marca" required />
+            <input type="text" id="Marca" name="Marca" maxlength="100" required />
 
             <label for="Modelo">Modelo:</label>
-            <input type="text" id="Modelo" name="Modelo" required />
+            <input type="text" id="Modelo" name="Modelo" maxlength="100" required />
 
             <label for="Traccion">Tracción:</label>
-            <input type="text" id="Traccion" name="Traccion" required />
+            <input type="text" id="Traccion" name="Traccion" maxlength="20" required />
 
             <label for="Color">Color:</label>
-            <input type="text" id="Color" name="Color" required />
+            <input type="text" id="Color" name="Color" maxlength="20" required />
 
             <label for="UltimaFechaAtencion">Última fecha de atención:</label>
             <input type="date" id="UltimaFechaAtencion" name="UltimaFechaAtencion" required />

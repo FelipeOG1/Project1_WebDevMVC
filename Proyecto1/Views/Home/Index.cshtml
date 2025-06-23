@@ -1,14 +1,106 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model Modelos
+
 
 <section class="bienvenida">
     <h1>Bienvenido al sistema de gestión de lavados</h1>
-    <p>Aquí podrás llevar un control detallado de empleados, vehículos, y servicios de lavado.</p>
+    <p>Aquí podrás visualizar los vehiculos y lavados registrados</p>
 
     <div class="acciones-inicio">
-        <a href="@Url.Action("CrearEmpleado", "Empleados")" class="btn-principal">Agregar primer empleado</a>
+        <a href="@Url.Action("CrearLavado", "Lavados")" class="btn-principal">Registar Lavado</a>
         <a href="@Url.Action("CrearVehiculo", "Vehiculos")" class="btn-secundario">Registrar vehículo</a>
     </div>
 </section>
+
+
+
+<section class="data">
+
+       @if (Model.Lavados != null && Model.Lavados.Any())
+    {
+ <h2>Lavados</h2>
+
+        <table class="tabla-index">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Placa</th>
+                    <th>ID Cliente</th>
+                    <th>Estado</th>
+                    <th>Tipo de Lavado</th>
+                    <th style="padding-left:20px">Prestaciones</th>
+                    <th>Precio sin IVA</th>
+                    <th>Precio con IVA</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var lavado in Model.Lavados)
+                {
+                    <tr>
+                        <td>@lavado.Id</td>
+                        <td>@lavado.Placa</td>
+                        <td>@lavado.IdCLiente</td>
+                        <td>@lavado.Estado</td>
+                        <td>@lavado.Tipo.nombre</td>
+                        <td>
+                            @if (lavado.Tipo.prestaciones != null && lavado.Tipo.prestaciones.Count > 0)
+                            {
+                                <div class="prestaciones-tags">
+                                    @foreach (var prestacion in lavado.Tipo.prestaciones)
+                                    {
+                                        <span class="tag">@prestacion</span>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <span>—</span>
+                            }
+                        </td>
+                        <td>@(lavado.Tipo.precio.HasValue ? $"₡{lavado.Tipo.precio.Value:N0}" : "No asignado")</td>
+                        <td>@($"₡{lavado.PrecioConIva}")</td> </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+     
+    
+    @if (Model.Vehiculos != null && Model.Vehiculos.Any())
+    {
+
+   <h2>Vehículos</h2>
+
+        <table class="tabla-index">
+            <thead>
+                <tr>
+                    <th>Placa</th>
+                    <th>Última fecha de atención</th>
+                    <th>Color</th>
+                    <th>Tracción</th>
+                    <th>Modelo</th>
+                    <th>Tratamiento Nano</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var vehiculo in Model.Vehiculos)
+                {
+                    <tr>
+                        <td>@vehiculo.Placa</td>
+                        <td>@vehiculo.UltimaFechaAtencion.ToShortDateString()</td>
+                        <td>@vehiculo.Color</td>
+                        <td>@vehiculo.Traccion</td>
+                        <td>@vehiculo.Modelo</td>
+                        <td>@(vehiculo.TratamientoEspecialNano ? "Sí" : "No")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</section>
+
+
+
+
+
 

@@ -32,7 +32,7 @@ namespace Proyecto1.Controllers
             
         }
 
-           [HttpGet]
+        [HttpGet]
         public IActionResult EditarCliente(int identificacion)
         {
 

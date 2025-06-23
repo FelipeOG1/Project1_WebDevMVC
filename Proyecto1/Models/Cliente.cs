@@ -7,7 +7,7 @@
         {
             Semanal,
             Quincenal,
-            Mensual
+            Mensual,
         }
 
                
@@ -20,11 +20,6 @@
             public string Telefono { get; set; }
             public FrecuenciaLavado PreferenciaLavado { get; set; }
         
-
-
-
-
-
 
 
        private static Dictionary<int,Cliente> _clientes= new Dictionary<int,Cliente>();
@@ -56,12 +51,6 @@
 
 
         }
-
-
-
-
-
-
 
         public static bool ExisteCliente(int identificacion)
         {

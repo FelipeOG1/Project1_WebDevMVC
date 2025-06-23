@@ -16,11 +16,12 @@ namespace Proyecto1.Controllers
         public IActionResult Index()
         {
 
-            List <Vehiculo> listaVehiculos = Vehiculo.MostrarVehiculos();
-            List<Empleado>listaEmpleados= Empleado.MostrarEmpleados();
-                        
+            Modelos modelos = new Modelos();
+
+            return View(modelos);
+
+                       
             
-            return View(listaVehiculos);
         }
 
         public IActionResult Privacy()

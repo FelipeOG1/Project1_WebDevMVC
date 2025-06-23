@@ -16,7 +16,7 @@ namespace Proyecto1.Models
     {
         public string nombre;
         public List<string>prestaciones;
-        public int? precio;
+        public decimal? precio;
 
     }
 
@@ -25,6 +25,7 @@ namespace Proyecto1.Models
 
         private static int idCounter = 1;
 
+        private const decimal Iva = 0.13m;
         public string Placa { get; set; }
 
         public int IdCLiente { get; set; }
@@ -35,10 +36,7 @@ namespace Proyecto1.Models
         public int Id { get; set; }
 
 
-        
-
-
-
+      
         private static Dictionary<int, Lavado> _lavados = new Dictionary<int, Lavado>();
         private static HashSet<int> _ids = new HashSet<int>();
 
@@ -74,31 +72,31 @@ namespace Proyecto1.Models
                 case "básico":
                     tipo.nombre = "Básico";
                     tipo.prestaciones = new List<string> { "Lavado", "Aspirado", "Encerado" };
-                    tipo.precio = 5000;
+                    tipo.precio = 5000m;
                     break;
 
                 case "premium":
                     tipo.nombre = "Premium";
                     tipo.prestaciones = new List<string> { "Lavado", "Aspirado", "Encerado", "Limpieza profunda de asientos" };
-                    tipo.precio = 8000;
+                    tipo.precio = 8000m;
                     break;
 
                 case "deluxe":
                     tipo.nombre = "Deluxe";
                     tipo.prestaciones = new List<string> { "Lavado", "Aspirado", "Encerado", "Limpieza profunda de asientos", "Corrección de pintura", "Tratamiento nanocerámico" };
-                    tipo.precio = 12000;
+                    tipo.precio = 12000m;
                     break;
 
                 case "la joya":
                     tipo.nombre = "La Joya";
                     tipo.prestaciones = new List<string> { "Todo lo anterior", "Pulidos", "Tratamientos hidrofóbicos", "Extras a convenir" };
-                    tipo.precio = 0;
+                    tipo.precio = 0m;
                     break;
 
                 default:
                     tipo.nombre = "Desconocido";
                     tipo.prestaciones = new List<string>();
-                    tipo.precio = 0;
+                    tipo.precio = 0m;
                     break;
             }
 
@@ -195,11 +193,22 @@ namespace Proyecto1.Models
         }
 
 
-
-
-
-
+        public decimal PrecioConIva
+        {
+            get
+            {
+                if (Tipo.precio.HasValue == true)
+                    return Tipo.precio.Value * (1 + Iva);
+                return 0;
+            }
+        }
     }
-    
+
+
+
+
+
 
 }
+    
+

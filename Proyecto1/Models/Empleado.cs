@@ -18,33 +18,8 @@ namespace Proyecto1.Models
         public decimal MontoLiquidacion { get; set; }
 
 
-        
-
-        public Empleado(
-            int cedula,
-            DateTime fechaNacimiento,
-            DateTime fechaIngreso,
-            decimal salarioPorDia,
-            int diasVacacionesAcumulados,
-            DateTime? fechaRetiro,
-            decimal montoLiquidacion
-         )
-        {
-            Cedula = cedula;
-            FechaNacimiento = fechaNacimiento;
-            FechaIngreso = fechaIngreso;
-            SalarioPorDia = salarioPorDia;
-            DiasVacacionesAcumulados = diasVacacionesAcumulados;
-            FechaRetiro = fechaRetiro;
-            MontoLiquidacion = montoLiquidacion;
-        }
-
-
-
-
-
-
-
+       
+    
 
 
         private static Dictionary<int,Empleado> _empleados = new Dictionary<int,Empleado>();

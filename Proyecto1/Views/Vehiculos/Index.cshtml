@@ -4,10 +4,10 @@
 
 @if (!Model.Any())
 {
-    <section class="hero">
+    <section class="hero hero--standard">
 
         <div class="hero-content">
-            <h1>Aún no has agregado ningún Vehiculo</h1>
+            <h1>Aún no has agregado ningún vehiculo</h1>
             <p>Empieza ahora agregando tu primer Vehiculo para gestionar tus lavados.</p>
             <a href="@Url.Action("CrearVehiculo", "Vehiculos")" class="btn-principal">Agregar el primer vehículo</a>
         </div>

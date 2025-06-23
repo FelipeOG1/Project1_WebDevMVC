@@ -38,8 +38,7 @@ namespace Proyecto1.Controllers
         }
 
         [HttpPost]
-       
-        
+      
         public IActionResult CrearLavado(string TipoNombre, string Placa, int IdCliente, EstadoLavado Estado, int ?Precio=null){
             
             
