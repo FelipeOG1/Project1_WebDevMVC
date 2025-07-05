@@ -46,7 +46,8 @@ namespace Proyecto1.Controllers
 
             int response = ClienteRepository.AgregarCliente(cliente);
 
-            if (response < 0)
+
+            if (response == -1)
             {
                 return BadRequest(new
                 {
@@ -54,8 +55,7 @@ namespace Proyecto1.Controllers
                 });
             }
 
-
-
+        
             return Ok(new
             {
                 Message = "Cliente Agregado con exito",
@@ -68,9 +68,29 @@ namespace Proyecto1.Controllers
         [HttpGet]
         public IActionResult MostrarClientes()
         {
+            List<Cliente> clientes = ClienteRepository.MostrarClientes();
+            
+            if(clientes!=null){
 
-            return Ok("mama");
+                var response = new
+                {
+                    Status = 202,
+                    Count = clientes.Count(),
+
+                    Content = clientes,
+                    
+                    Message = "Todavia no se tiene ningú cliente registrado"
+                    
+                    
+                };
+
+                return Ok(response); 
+            }
+            return Accepted(new {Content = "Todavía no se registra ningún cliente"});
+
+    
         }
+        
 
         
 

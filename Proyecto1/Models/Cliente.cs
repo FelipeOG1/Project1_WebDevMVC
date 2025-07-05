@@ -1,4 +1,6 @@
-﻿namespace Proyecto1.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Proyecto1.Models
 {
     public class Cliente
     {
@@ -10,15 +12,24 @@
             Mensual,
         }
 
-               
+            [Required]
+            
             public int Identificacion { get; set; }
+            [Required]
             public string NombreCompleto { get; set; }
+            [Required]
             public string Provincia { get; set; }
+            [Required]
             public string Canton { get; set; }
+            [Required]
             public string Distrito { get; set; }
+            [Required]
             public string DireccionExacta { get; set; }
+            [Required]
             public string Telefono { get; set; }
-            public FrecuenciaLavado PreferenciaLavado { get; set; }
+
+            [Required]
+            public FrecuenciaLavado? PreferenciaLavado { get; set; }
         
 
 
@@ -127,7 +138,8 @@
 
        
 
-     
+
+          
 
 
     }

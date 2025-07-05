@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Diagnostics.Tracing;
+using System.Net;
 using Proyecto1.Models;
 
 namespace Proyecto1.Repositiories
@@ -62,21 +63,20 @@ namespace Proyecto1.Repositiories
         }
         public static List<Cliente> MostrarClientes()
         {
-
-            List<Cliente>listaClientes = new List<Cliente>();
-
-            if (_clientes.Count > 0)
+            if (_clientes.Count() > 0)
             {
+                List<Cliente> lista_clientes = _clientes.Values.ToList();
 
-                foreach (var emp in _clientes.Values)
-                {
-
-                    listaClientes.Add(emp);
-                }
+                return lista_clientes;
 
             }
 
-            return listaClientes;
+
+
+            return null;
+
+
+
             
         }
 
