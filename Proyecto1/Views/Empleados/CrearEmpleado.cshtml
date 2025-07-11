@@ -11,7 +11,7 @@
 
     <div class="form-container">
 
-        <form asp-action="CrearEmpleado" asp-controller="Empleados" method="post">
+        <form id="formEmpleado"asp-action="CrearEmpleado" asp-controller="EmpleadosApi" method="post">
             <label for="Cedula">Cédula:</label>
             <input type="number" id="Cedula" name="Cedula" required />
             @Html.ValidationMessageFor(m => m.Cedula)
@@ -34,8 +34,68 @@
             <label for="MontoLiquidacion">Monto de liquidación:</label>
             <input type="number" id="MontoLiquidacion" name="MontoLiquidacion" step="0.01" required />
 
-            <button type="submit">Guardar</button>
+            <button type="submit" id="mainButton">Guardar</button>
         </form>
     </div>
 
 </section>
+
+
+<script>
+
+    const form = document.getElementById("formEmpleado");
+    let elements = form.elements;
+
+    const checkType = (type,value)=>{
+           if(type == "number") return Number(value)
+
+           return value
+    }
+    form.addEventListener("submit",(e)=>{
+      e.preventDefault();
+      let dict = {}
+    //Toma en cuente al valor de cada input asi como su tipo para luego transformalo en un cdas
+     for(let i =0;i<elements.length;i++){
+        if(elements[i].tagName=="INPUT" && elements[i].type!="hidden"){
+
+            let currentTag = elements[i];
+
+            let currentKey = currentTag.name
+            let currentValueType = currentTag.type   
+            let currentValue = currentTag.value;
+
+            dict[currentKey] = checkType(currentValueType,currentValue);
+               
+        }
+    }
+    
+    console.log(dict)
+
+    fetch('/api/empleados', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(dict)
+})
+.then(res => {
+  if (res.ok) {
+    console.log('Empleado creado con éxito');
+    window.location.href = '/Empleados/MostrarEmpleados'; 
+  } else {
+    return res.json().then(error => {
+      console.error('Error desde el servidor:', error);
+      alert(error.message || "Hubo un error al crear el empleado");
+    });
+  }
+})
+.catch(error => {
+  console.error('Error de red:', error);
+  alert('Error de red o del servidor');
+});
+
+   
+    })
+    
+   
+</script>

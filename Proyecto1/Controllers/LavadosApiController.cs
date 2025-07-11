@@ -23,8 +23,6 @@ namespace Proyecto1.Controllers
 
                 lavado.Tipo = tipo;
                  
-
-
                 int res = LavadoRepository.AgregarLavado(lavado,tipo);
 
                 if (res != -1)
@@ -39,9 +37,7 @@ namespace Proyecto1.Controllers
                     return BadRequest(new { message = "No se pudo agregar el lavado" });
                 }
                                
-
-
-                
+               
             }
             else
             {
@@ -50,22 +46,21 @@ namespace Proyecto1.Controllers
             }
 
 
-
-
-
         }
 
         [HttpGet]
         public IActionResult MostrarLavados()
         {
-            var lavados = LavadoRepository.MostrarLavados();
+            List<Lavado>lavados = LavadoRepository.MostrarLavados();
 
             if (lavados.Count > 0)
             {
                 return Ok(new
                 {
                     Count = lavados.Count,
-                    Lavados = lavados
+                    Lavados = lavados,
+
+                    
                 });
             }
 

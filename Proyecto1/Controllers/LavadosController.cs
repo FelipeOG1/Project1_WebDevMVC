@@ -45,9 +45,7 @@ namespace Proyecto1.Controllers
             
             TipoLavado tipo = Lavado.inicializarTipo(TipoNombre);
 
-            Lavado nuevoLavado= new Lavado(Placa,IdCliente,Estado,tipo,Precio);
 
-            Lavado.AgregarLavado(nuevoLavado);
 
 
             return RedirectToAction("Index");
@@ -89,12 +87,7 @@ namespace Proyecto1.Controllers
             TipoLavado tipo = Lavado.inicializarTipo(TipoNombre);
 
 
-            Lavado nuevoLavado = new Lavado(Placa, IdCliente, Estado, tipo, Precio);
-
-            nuevoLavado.Id = id;
        
-            Lavado.ReemplazarLavado(nuevoLavado);
-
 
             return RedirectToAction("Index");
         }

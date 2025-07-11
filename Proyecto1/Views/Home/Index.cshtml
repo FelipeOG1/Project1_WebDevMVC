@@ -11,8 +11,6 @@
     </div>
 </section>
 
-
-
 <section class="data">
 
        @if (Model.Lavados != null && Model.Lavados.Any())
@@ -57,7 +55,9 @@
                             }
                         </td>
                         <td>@(lavado.Tipo.precio.HasValue ? $"₡{lavado.Tipo.precio.Value:N0}" : "No asignado")</td>
-                        <td>@($"₡{lavado.PrecioConIva}")</td> </tr>
+                        <!---->
+                        <!-- #region >-->
+                        </tr>
                 }
             </tbody>
         </table>

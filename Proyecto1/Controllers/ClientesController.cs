@@ -1,26 +1,65 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Proyecto1.Models;
-
-
+using System.Text.Json.Nodes;
+using System.Net;
+using System.Text.Json;
 
 namespace Proyecto1.Controllers
 {
+     
     public class ClientesController:Controller
     {
 
+        private readonly HttpClient _httpClient;
 
-
-         [HttpGet]
-        public IActionResult Index()
+        public ClientesController(HttpClient httpClient)
         {
-   
-           List<Cliente>lista=Cliente.MostrarClientes();
-
-
-
-            return View(lista);
+            _httpClient = httpClient;
         }
+
+
+            [HttpGet]
+            public async Task<IActionResult> MostrarClientes()
+            {
+                string url = "http://localhost:5055/api/clientes";
+
+                HttpResponseMessage response = await _httpClient.GetAsync(url);
+                string json = await response.Content.ReadAsStringAsync();
+
+                try
+                {
+                    if (response.IsSuccessStatusCode)
+                    {                   
+                        var listaClientes = JsonSerializer.Deserialize<List<Cliente>>(json, new JsonSerializerOptions
+                        {
+                            PropertyNameCaseInsensitive = true
+                        });
+
+                        return View(listaClientes);
+                    }
+                    else if (response.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        JsonNode node = JsonNode.Parse(json);
+                        string mensaje = node["message"]?.ToString();
+                        ViewData["Message"] = mensaje ?? "Ocurrió un error desconocido.";
+                        return View(new List<Cliente>()); 
+                    }
+                    else
+                    {
+                        ViewData["Message"] = "Error inesperado del servidor.";
+                        return View(new List<Cliente>());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ViewData["Message"] = "Error procesando la respuesta: " + ex.Message;
+                    return View(new List<Cliente>());
+                }
+            }
+
+
+       
 
         [HttpGet]
         public IActionResult CrearCliente()
@@ -38,36 +77,13 @@ namespace Proyecto1.Controllers
 
 
 
-             Cliente cl = Cliente.BuscarCliente(identificacion);
-
-
-
-
-
-
-            return View(cl);
+            return View();
 
 
         }
 
-
-
-
         public IActionResult ReemplazarCliente(Cliente ClienteActualizado)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("EditarCliente", ClienteActualizado);
-            }
-
-            Cliente original = Cliente.BuscarCliente(ClienteActualizado.Identificacion);
-
-            if (original == null)
-            {
-                return NotFound();
-            }
-
-            Cliente.ReemplazarCliente(ClienteActualizado);
 
             return RedirectToAction("Index");
 
@@ -82,12 +98,6 @@ namespace Proyecto1.Controllers
         public IActionResult BuscarCliente(int identificacion)
         {
 
-            if (Cliente.ExisteCliente(identificacion))
-            {
-
-                return RedirectToAction("EditarCLiente", new {identificacion = identificacion});
-            }
-
             TempData["Mensaje"] = "No existe un usuario con esa cedula";
             return RedirectToAction("Index");
 
@@ -99,41 +109,23 @@ namespace Proyecto1.Controllers
         public IActionResult CrearCliente(Cliente cl)
         {
 
-            if (Cliente.ExisteCliente(cl.Identificacion))
-            {
 
-                ModelState.AddModelError("Identificacion", "Ya existe un Cliente con esa Identificación");
 
                 
-                
-            }
-            if (!ModelState.IsValid)
-            {
-                return View(cl); // Retorna a la misma vista con los errores
-            }
-
-            Cliente.AgregarCliente(cl);
-
-
-
 
 
             return RedirectToAction("Index");  
         }
 
         
- 
+        
         public IActionResult EliminarCliente(int identificacion)
         {
 
 
            
-           int res = Cliente.EliminarCliente(identificacion);
-
 
            return RedirectToAction("Index");
-
-
 
 
 
@@ -141,7 +133,5 @@ namespace Proyecto1.Controllers
         }
 
         
-
-
     }
 }

@@ -1,135 +1,174 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Proyecto1.Models;
+using System.Text.Json.Nodes;
+using System.Net;
+using System.Text.Json;
+using System.Reflection.Metadata.Ecma335;
+
 
 namespace Proyecto1.Controllers
 {
-    public class EmpleadosController: Controller
+    public class EmpleadosController : Controller
     {
 
-        [HttpGet]
-        public IActionResult Index()
+
+        private readonly string URL = "http://localhost:5055/api/empleados";
+        
+       private readonly HttpClient _httpClient;
+
+      private JsonSerializerOptions? options = new JsonSerializerOptions
+    {
+        PropertyNameCaseInsensitive = true
+    };
+
+       public EmpleadosController(IHttpClientFactory httpClientFactory)
         {
-   
-           List<Empleado>lista=Empleado.MostrarEmpleados();
-
-
-
-            return View(lista);
+            _httpClient = httpClientFactory.CreateClient();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> MostrarEmpleados()
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync(URL);
+
+            int res = (int)response.StatusCode;
+
+            List<Empleado>? lista_empleados = new List<Empleado>();
+            switch (res)
+            {
+                case 202:
+
+                    ViewData["Message"] = "Todavia no se registran clients";
+
+                    break;
+                case 200:
+                    string json_string = await response.Content.ReadAsStringAsync();
+                    JsonNode? root = JsonNode.Parse(json_string);
+
+
+                    if (root != null && root["empleados"] is JsonArray empleadosNode)
+                    {
+
+                        lista_empleados = JsonSerializer.Deserialize<List<Empleado>>(empleadosNode.ToJsonString(), options);
+
+                        Console.WriteLine($"Cantidad de empleados en la lista {lista_empleados.Count()}");
+
+                        Console.WriteLine(lista_empleados[0].Cedula);
+
+
+                    }
+                    break;
+
+            }
+
+            return View(lista_empleados);
+
+        }
         [HttpGet]
         public IActionResult CrearEmpleado()
         {
-
-
+           
             return View();
 
+        }
+
+        [HttpGet]
+        async public Task<IActionResult> EditarEmpleado(int cedula)
+        {
+
+            string currentUrl = $"{URL}/buscar/?id={cedula}";
+            HttpResponseMessage response = await _httpClient.GetAsync($"{URL}/buscar/?id={cedula}");
+
             
-        }
+            string mama = await response.Content.ReadAsStringAsync();
+            
+            int res = (int)response.StatusCode;
 
-           [HttpGet]
-        public IActionResult EditarEmpleado(int cedula)
-        {
+            Empleado? empleado = new Empleado();
 
-
-
-            Empleado em = Empleado.BuscarEmpleadoPorCedula(cedula);
-
-
-            return View(em);
-
-        }
-
-
-       
-
-        public IActionResult ReemplazarEmpleado(Empleado empleadoActualizado)
+            switch (res)
             {
-            if (!ModelState.IsValid)
-            {
-                return View("EditarEmpleado", empleadoActualizado);             }
 
-            Empleado original = Empleado.BuscarEmpleadoPorCedula(empleadoActualizado.Cedula);
+                case 200:
+                    string json_string = await response.Content.ReadAsStringAsync();
 
-            if (original == null)
-            {
-                return NotFound(); 
+                    empleado = JsonSerializer.Deserialize<Empleado>(json_string, options);
+
+                    Console.WriteLine("mama");
+
+
+                    break;
+
+                case 404:
+                    Console.WriteLine("aaaa");
+
+                    break;
+
             }
-
-            Empleado.ReemplazarEmpleado(empleadoActualizado);
-            return RedirectToAction("Index");
-
-
-
-
+            return View(empleado);
 
         }
 
         [HttpPost]
-        public IActionResult BuscarEmpleado(int cedula)
+        async public Task<IActionResult> BuscarEmpleado(int cedula)
         {
+            string currentUrl = $"{URL}/buscar/?id={cedula}";
+            HttpResponseMessage response = await _httpClient.GetAsync($"{URL}/buscar/?id={cedula}");
 
-            if (Empleado.ExisteEmpleado(cedula))
+
+
+            int res = (int)response.StatusCode;
+
+            Empleado? empleado = new Empleado();
+
+            switch (res)
             {
 
-                return RedirectToAction("EditarEmpleado", new { cedula = cedula });
+                case 200:
+                    string json_string = await response.Content.ReadAsStringAsync();
 
-            }
-
-            TempData["Mensaje"] = "No existe ningun empleado con esa cedula";
-
-            return RedirectToAction("Index");   
-        }
+                    empleado = JsonSerializer.Deserialize<Empleado>(json_string, options);
 
 
-        [HttpPost]
-        public IActionResult CrearEmpleado(Empleado emp)
+                    return RedirectToAction("EditarEmpleado", new { cedula = empleado.Cedula });
+
+                default :
+                    TempData["Mensaje"] = "No existe ningun empleado con esa cedula";
+
+                    return RedirectToAction("MostrarEmpleados");
+
+
+            }           
+
+     }
+     
+        async public Task<IActionResult> EliminarEmpleado(int cedula)
         {
 
-            if (Empleado.ExisteEmpleado(emp.Cedula))
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"{URL}/?id={cedula}");
+
+            int res = (int)response.StatusCode;
+
+
+            switch (res)
             {
 
-                ModelState.AddModelError("Cedula", "Ya existe un Empleado con esa cedula");
-                
+                case 200:
+
+
+                    break;
+
+                case 404:
+                    Console.WriteLine("aaaa");
+
+                    break;
+
             }
-            if (!ModelState.IsValid)
-            {
-                return View(emp); // Retorna a la misma vista con los errores
-            }
-
-            Empleado.AgregarEmpleado(emp);
-
-
-
-
-
-            return RedirectToAction("Index");  
-        }
-
-        
-
-
-
-
-        public IActionResult EliminarEmpleado(int cedula)
-        {
-
-
-
-           int res = Empleado.EliminarEmpleado(cedula);
-
-           return RedirectToAction("Index");
-
-
-
-
+            return RedirectToAction("MostrarEmpleados");
 
 
         }
-
-        
-
 
 
     }

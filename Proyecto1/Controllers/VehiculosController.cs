@@ -11,14 +11,11 @@ namespace Proyecto1.Controllers
         public IActionResult Index()
         {
    
-           List<Vehiculo>lista=Vehiculo.MostrarVehiculos();
-
-            
 
 
 
 
-            return View(lista);
+            return View();
         }
 
 
@@ -38,17 +35,12 @@ namespace Proyecto1.Controllers
         public IActionResult CrearVehiculo(Vehiculo ve )
         {
 
-            if (Vehiculo.ExisteVehiculo(ve.Placa)) {
-
-                ModelState.AddModelError("Placa", "Ya existe un Vehiculo con esa placa");
-
-            }
+          
             if (!ModelState.IsValid)
             {
                 return View(ve); 
             }
 
-            Vehiculo.AgregarVehiculo(ve);
 
 
             return RedirectToAction("Index");
@@ -60,9 +52,8 @@ namespace Proyecto1.Controllers
         {
 
 
-            Vehiculo ve = Vehiculo.BuscarVehiculoPorPlaca(placa);
 
-            return View(ve);
+            return View();
 
 
         }
@@ -75,16 +66,7 @@ namespace Proyecto1.Controllers
                 return View("EditarEmpleado", vehiculoActualizado); // En caso de error de validación
              }
 
-            Vehiculo original = Vehiculo.BuscarVehiculoPorPlaca(vehiculoActualizado.Placa); 
-
-
-
-            if (original == null)
-            {
-                return NotFound();
-            }
-
-            Vehiculo.ReemplazarVehiculo(vehiculoActualizado); // Este método debes tenerlo tú
+          
 
             return RedirectToAction("Index");
 
@@ -96,13 +78,7 @@ namespace Proyecto1.Controllers
         public IActionResult BuscarVehiculo(string placa)
         {
 
-            if (Vehiculo.ExisteVehiculo(placa))
-            {
-
-                return RedirectToAction("EditarVehiculo", new { placa = placa });
-
-            }
-
+        
             TempData["Mensaje"] = "No existe ningun vehiculo con esa placa";
 
             return RedirectToAction("Index");
@@ -115,12 +91,8 @@ namespace Proyecto1.Controllers
 
 
 
-            int res = Vehiculo.EliminarVehiculo(placa);
 
             return RedirectToAction("Index");
-
-
-
         }
 
 
