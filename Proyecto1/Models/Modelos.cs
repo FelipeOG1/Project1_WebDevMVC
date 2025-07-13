@@ -12,11 +12,11 @@ namespace Proyecto1.Models
 
        public Modelos()
         {
-
+             /*  
             Vehiculos= Vehiculo.MostrarVehiculos();
-            Clientes=Cliente.MostrarClientes();
             Lavados= Lavado.MostrarLavados();
             Empleados=Empleado.MostrarEmpleados();
+            */
         }
 
 

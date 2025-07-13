@@ -4,6 +4,10 @@ using Proyecto1.Models;
 using System.Text.Json.Nodes;
 using System.Net;
 using System.Text.Json;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks.Dataflow;
+using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace Proyecto1.Controllers
 {
@@ -12,58 +16,64 @@ namespace Proyecto1.Controllers
     {
 
         private readonly HttpClient _httpClient;
+    
+        private readonly string URL = "http://localhost:5055/api/clientes";
+
+          private JsonSerializerOptions? options = new JsonSerializerOptions
+          {
+              PropertyNameCaseInsensitive = true
+            
+            };
+
+
 
         public ClientesController(HttpClient httpClient)
         {
             _httpClient = httpClient;
+            options.Converters.Add(new JsonStringEnumConverter());
+
         }
 
 
-            [HttpGet]
-            public async Task<IActionResult> MostrarClientes()
+        [HttpGet]
+        public async Task<IActionResult> MostrarClientes()
+        {
+
+            HttpResponseMessage response = await _httpClient.GetAsync(URL);
+
+            List<Cliente>? lista_clientes = new List <Cliente>();
+            int response_status_code= (int)response.StatusCode;
+            switch (response_status_code)
             {
-                string url = "http://localhost:5055/api/clientes";
-
-                HttpResponseMessage response = await _httpClient.GetAsync(url);
-                string json = await response.Content.ReadAsStringAsync();
-
-                try
-                {
-                    if (response.IsSuccessStatusCode)
-                    {                   
-                        var listaClientes = JsonSerializer.Deserialize<List<Cliente>>(json, new JsonSerializerOptions
-                        {
-                            PropertyNameCaseInsensitive = true
-                        });
-
-                        return View(listaClientes);
-                    }
-                    else if (response.StatusCode == HttpStatusCode.BadRequest)
+                case 200:
+                    string json_content = await response.Content.ReadAsStringAsync();
+                    JsonNode? root = JsonNode.Parse(json_content);
+                    if (root != null && root["clientes"] is JsonArray clientesNode)
                     {
-                        JsonNode node = JsonNode.Parse(json);
-                        string mensaje = node["message"]?.ToString();
-                        ViewData["Message"] = mensaje ?? "Ocurrió un error desconocido.";
-                        return View(new List<Cliente>()); 
+
+                         lista_clientes = JsonSerializer.Deserialize<List<Cliente>>(clientesNode.ToJsonString(), options);
+
+                        Console.WriteLine($"Cantidad de empleados en la lista {lista_clientes.Count()}");
+
+                        Console.WriteLine(lista_clientes[0].Identificacion);
                     }
-                    else
-                    {
-                        ViewData["Message"] = "Error inesperado del servidor.";
-                        return View(new List<Cliente>());
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ViewData["Message"] = "Error procesando la respuesta: " + ex.Message;
-                    return View(new List<Cliente>());
-                }
+
+                    break;
+
+                case 202:
+                    ViewData["Message"] = "Todavia no se agregan clientes";
+
+                    break;
             }
 
-
-       
+            return View(lista_clientes);
+        }      
 
         [HttpGet]
         public IActionResult CrearCliente()
         {
+
+            
 
 
             return View();
@@ -72,12 +82,39 @@ namespace Proyecto1.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditarCliente(int identificacion)
+       async public Task<IActionResult> EditarCliente(int identificacion)
         {
 
+            
+            HttpResponseMessage response = await _httpClient.GetAsync($"{URL}/buscar/?id={identificacion}");
+
+            
+            int res = (int)response.StatusCode;
+
+            Cliente? cliente = new Cliente();
+
+            switch (res)
+            {
+
+                case 200:
+                    string json_string = await response.Content.ReadAsStringAsync();
+
+                    cliente = JsonSerializer.Deserialize<Cliente>(json_string, options);
+
+                    Console.WriteLine("mama");
 
 
-            return View();
+                    break;
+
+                case 404:
+                    Console.WriteLine("aaaa");
+
+                    break;
+
+            }
+            return View(cliente);
+
+
 
 
         }
@@ -119,13 +156,33 @@ namespace Proyecto1.Controllers
 
         
         
-        public IActionResult EliminarCliente(int identificacion)
+        async public Task<IActionResult> EliminarCliente(int identificacion)
         {
 
 
-           
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"{URL}/?id={identificacion}");
 
-           return RedirectToAction("Index");
+            int res = (int)response.StatusCode;
+
+            switch (res)
+            {
+
+                case 200:
+
+
+                    break;
+
+                case 404:
+                    Console.WriteLine("aaaa");
+
+                    break;
+
+            }
+            return RedirectToAction("MostrarClientes");
+
+
+  
+
 
 
 

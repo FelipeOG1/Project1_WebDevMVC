@@ -8,7 +8,7 @@
     <h1>@ViewData["title"]</h1>
 
     <div class="form-container">
-        <form asp-action="ReemplazarCliente" method="post">
+        <form id="form_clientes">
             <label for="Identificacion">Identificación:</label>
             <input type="number" id="Identificacion" name="Identificacion" required value="@Model.Identificacion" readonly />
 
@@ -45,3 +45,62 @@
         </form>
     </div>
 </section>
+
+
+
+
+<script>
+
+
+    let form_clientes = document.getElementById("form_clientes");
+
+let elementos = form_clientes.elements
+
+form_clientes.addEventListener("submit",(e)=>{
+let dict = {}
+e.preventDefault()
+
+for(let i=0;i<elementos.length;i++){
+    let currentElement = elementos[i]
+    if (currentElement.tag="INPUT" && currentElement.type!="hidden"){
+       
+
+        let key = currentElement.name
+        let value = currentElement.value
+        
+        dict[key] = value
+        
+    }
+
+    
+}
+
+  fetch('/api/clientes', {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(dict)
+})
+.then(res => {
+
+    console.log(res.status)
+  if (res.ok) {
+    console.log('Cliente editado con éxito');
+    window.location.href = '/Clientes/MostrarClientes'; 
+  } else {
+    return res.json().then(error => {
+      console.error('Error desde el servidor:', error);
+      alert(error.message || "Hubo un error al crear el empleado");
+    });
+  }
+})
+.catch(error => {
+  console.error('Error de red:', error);
+  alert('Error de red o del servidor');
+});
+
+
+    
+})
+</script>

@@ -2,6 +2,10 @@
 using Microsoft.Net.Http.Headers;
 using System.Globalization;
 using System.Security.Cryptography;
+using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Proyecto1.Models
 {
@@ -12,57 +16,50 @@ namespace Proyecto1.Models
         Agendado
     }
 
-    public struct TipoLavado
+    public class  TipoLavado
     {
-        public string nombre;
-        public List<string>prestaciones;
-        public decimal? precio;
+    public string nombre { get; set; }
+    public List<string> prestaciones { get; set; }
+    public decimal? precio { get; set; }
 
     }
-
     public class Lavado
-    {
+    { 
 
-        private static int idCounter = 1;
+    private static int idCounter = 1;
 
-        private const decimal Iva = 0.13m;
-        public string Placa { get; set; }
+    public int Id { get; set; }
 
-        public int IdCLiente { get; set; }
+    private const decimal Iva = 0.13m;
+    [Required(ErrorMessage = "La placa es obligatoria")]
+    public string Placa { get; set; }
 
-        public EstadoLavado Estado { get; set; }
+    [Required(ErrorMessage = "El id del cliente es obligatorio")]
+    public int IdCLiente { get; set; }
 
-        public TipoLavado Tipo { get; set; }
-        public int Id { get; set; }
+    [Required(ErrorMessage = "El estado del lavado es obligatorio")]
+    public EstadoLavado Estado { get; set; }
 
+    [Required(ErrorMessage = "El nombre del tipo es obligatorio")]
+    public string nombreTipo { get; set; }
+    [BindNever]
+    public TipoLavado? Tipo{ get; set; }
+    public decimal? precio { get; set; }
+
+    public decimal? precio_con_iva{ get; set; }
 
       
         private static Dictionary<int, Lavado> _lavados = new Dictionary<int, Lavado>();
         private static HashSet<int> _ids = new HashSet<int>();
 
+      
+        
 
-        public Lavado(string placa, int idCLiente, EstadoLavado estado, TipoLavado tipo,int ?precio)
+        public Lavado()
         {
-
-            if (precio != null)
-            {
-                tipo.precio = precio;
-            }
-
-
-            Placa = placa;
-            IdCLiente = idCLiente;
-            Estado = estado;
-            Tipo = tipo;
-            Id=idCounter++;
-
-
-                             
-        
-        } 
-        public Lavado() { }
         
         
+       } 
         public static TipoLavado inicializarTipo(string name)
         {
             TipoLavado tipo = new TipoLavado();
@@ -104,25 +101,23 @@ namespace Proyecto1.Models
         }
 
 
-        public static int AgregarLavado(Lavado lav)
+        public static int AgregarLavado(Lavado lav,TipoLavado tipo)
         {
-
-
+                            
             if (_ids.Contains(lav.Id))
             {
 
                 return -1;
             }
 
-            _lavados.Add(lav.Id, lav);
-            _ids.Add(lav.Id);
-
+             int currentId = idCounter++;
+            _lavados.Add(currentId, lav);
+            _ids.Add(currentId);
 
             return _lavados.Count;
-
+           
         }
-
-
+             
         public static bool ExisteLavado(int id)
         {
 
@@ -141,7 +136,9 @@ namespace Proyecto1.Models
         }
 
         public static Lavado BucarLavadoPorId(int id)
-        {
+        {  
+
+          
 
 
             if (ExisteLavado(id))
@@ -191,22 +188,18 @@ namespace Proyecto1.Models
 
 
         }
-
-
-        public decimal PrecioConIva
+        public static decimal PrecioConIva(decimal? precio)
         {
-            get
             {
-                if (Tipo.precio.HasValue == true)
-                    return Tipo.precio.Value * (1 + Iva);
+                if (precio.HasValue == true)
+                    return precio.Value * (1 + Iva);
                 return 0;
             }
         }
-    }
+       
 
-
-
-
+        
+}
 
 
 }

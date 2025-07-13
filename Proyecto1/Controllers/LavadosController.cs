@@ -1,30 +1,71 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Proyecto1.Models;
-
+using System.Text.Json.Nodes;
+using System.Net;
+using System.Text.Json;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks.Dataflow;
+using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace Proyecto1.Controllers
 {
     public class LavadosController: Controller
     {
 
+        private readonly HttpClient _httpClient;
 
-        [HttpGet]
-        public IActionResult Index()
+         private readonly string URL = "http://localhost:5055/api/lavados";
+
+          private JsonSerializerOptions? options = new JsonSerializerOptions
+          {
+              PropertyNameCaseInsensitive = true
+            
+            };
+
+
+        public LavadosController(HttpClient httpClient)
         {
 
-            List<Lavado>lavado=Lavado.MostrarLavados();
-
-            
-
-
-
-            
-
-            return View(lavado);
-
+            _httpClient = httpClient;
+            options.Converters.Add(new JsonStringEnumConverter());
 
         }
+
+        [HttpGet]
+        async public Task<IActionResult> MostrarLavados()
+        {
+
+
+            HttpResponseMessage response = await _httpClient.GetAsync(URL);
+
+            List<Lavado>? lista_lavados = new List <Lavado>();
+            int response_status_code= (int)response.StatusCode;
+            switch (response_status_code)
+            {
+                case 200:
+                    string json_content = await response.Content.ReadAsStringAsync();
+                    JsonNode? root = JsonNode.Parse(json_content);
+                    if (root != null && root["lavados"] is JsonArray lavadosNode)
+                    {
+
+                         lista_lavados = JsonSerializer.Deserialize<List<Lavado>>(lavadosNode.ToJsonString(), options);
+
+
+                    }
+
+                    break;
+
+                case 202:
+                    ViewData["Message"] = "Todavia no se agregan clientes";
+
+                    break;
+            }
+
+            return View(lista_lavados);
+
+       }
 
         [HttpGet]
         public IActionResult CrearLavado()
@@ -33,46 +74,77 @@ namespace Proyecto1.Controllers
 
             return View();
 
-
-
-        }
-
-        [HttpPost]
-      
-        public IActionResult CrearLavado(string TipoNombre, string Placa, int IdCliente, EstadoLavado Estado, int ?Precio=null){
-            
-            
-            
-            TipoLavado tipo = Lavado.inicializarTipo(TipoNombre);
-
-
-
-
-            return RedirectToAction("Index");
         }
 
 
         [HttpPost]
-        public IActionResult BuscarLavado(int idLavado )
+        async public Task<IActionResult> BuscarLavado(int id)
         {
+            HttpResponseMessage response = await _httpClient.GetAsync($"{URL}/buscar/?id={id}");
 
-            if (Lavado.ExisteLavado(idLavado))
+            int res = (int)response.StatusCode;
+
+            Empleado? empleado = new Empleado();
+
+            switch (res)
             {
 
-                return RedirectToAction("EditarLavado", new { id = idLavado });
+                case 200:
+                    string json_string = await response.Content.ReadAsStringAsync();
 
-            }
+                    empleado = JsonSerializer.Deserialize<Empleado>(json_string, options);
 
-            TempData["Mensaje"] = "No existe ningun lavado con ese id";
 
-            return RedirectToAction("Index");
+                    return RedirectToAction("EditarEmpleado", new { cedula = empleado.Cedula });
+
+                default :
+                    TempData["Mensaje"] = "No existe ningun empleado con esa cedula";
+
+                    return RedirectToAction("MostrarEmpleados");
+
+
+            }           
+
+            
+            
+            
+
         }
 
 
 
         [HttpGet]
-        public IActionResult EditarLavado(int id)
+       async public Task<IActionResult> EditarLavado(int id)
         {
+
+             HttpResponseMessage response = await _httpClient.GetAsync($"{URL}/buscar/?id={id}");
+
+            
+            int res = (int)response.StatusCode;
+
+            Cliente? cliente = new Cliente();
+
+            switch (res)
+            {
+
+                case 200:
+                    string json_string = await response.Content.ReadAsStringAsync();
+
+                    cliente = JsonSerializer.Deserialize<Cliente>(json_string, options);
+
+                    Console.WriteLine("mama");
+
+
+                    break;
+
+                case 404:
+                    Console.WriteLine("aaaa");
+
+                    break;
+
+            }
+            return View(cliente);
+
 
            Lavado lavado = Lavado.BucarLavadoPorId(id);
 
@@ -81,23 +153,31 @@ namespace Proyecto1.Controllers
 
         }
 
-        [HttpPost]
-        public IActionResult ReemplazarLavado(int id,string TipoNombre, string Placa, int IdCliente, EstadoLavado Estado, int? Precio = null)
+
+
+       async public Task<IActionResult> EliminarLavado(int id)
         {
-            TipoLavado tipo = Lavado.inicializarTipo(TipoNombre);
+            
+             HttpResponseMessage response = await _httpClient.DeleteAsync($"{URL}/?id={id}");
+            int res = (int)response.StatusCode;
+
+            switch (res)
+            {
+
+                case 200:
 
 
-       
+                    break;
 
-            return RedirectToAction("Index");
-        }
+                case 404:
+                    Console.WriteLine("aaaa");
 
-        public IActionResult EliminarLavado(int id)
-        {
+                    break;
 
-            int res = Lavado.EliminarLavado(id);
+            }
+            return RedirectToAction("MostrarLavados");
 
-            return RedirectToAction("Index");
+           
 
 
        

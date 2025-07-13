@@ -113,10 +113,7 @@ namespace Proyecto1.Controllers
         [HttpPost]
         async public Task<IActionResult> BuscarEmpleado(int cedula)
         {
-            string currentUrl = $"{URL}/buscar/?id={cedula}";
             HttpResponseMessage response = await _httpClient.GetAsync($"{URL}/buscar/?id={cedula}");
-
-
 
             int res = (int)response.StatusCode;
 
@@ -147,9 +144,7 @@ namespace Proyecto1.Controllers
         {
 
             HttpResponseMessage response = await _httpClient.DeleteAsync($"{URL}/?id={cedula}");
-
             int res = (int)response.StatusCode;
-
 
             switch (res)
             {
@@ -169,7 +164,6 @@ namespace Proyecto1.Controllers
 
 
         }
-
 
     }
 }

@@ -1,7 +1,4 @@
 ﻿@model Empleado
-
-
-
 @{
     ViewData["title"] = "Editar Empleado";
 }
@@ -69,28 +66,27 @@
   method: 'PUT',
   headers: {
     'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(dict)
-})
-.then(res => {
-  if (res.ok) {
-    console.log('Empleado creado con éxito');
-    window.location.href = '/Empleados/MostrarEmpleados'; 
-  } else {
-    return res.json().then(error => {
-      console.error('Error desde el servidor:', error);
-      alert(error.message || "Hubo un error al editar el empleado");
-    });
-  }
-})
-.catch(error => {
-  console.error('Error de red:', error);
-  alert('Error de red o del servidor');
-});
-
-   
+    },
+    body: JSON.stringify(dict)
+  })
+  .then(res => {
+    if (res.ok) {
+      console.log('Empleado creado con éxito');
+      window.location.href = '/Empleados/MostrarEmpleados'; 
+    } else {
+      return res.json().then(error => {
+        console.error('Error desde el servidor:', error);
+        alert(error.message || "Hubo un error al editar el empleado");
+      });
+    }
+  })
+  .catch(error => {
+    console.error('Error de red:', error);
+    alert('Error de red o del servidor');
+  });
+  
     })
-    
+   
    
 </script>
 

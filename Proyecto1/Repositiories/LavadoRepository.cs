@@ -61,12 +61,33 @@ namespace Proyecto1.Repositiories
         {
              lav.Tipo = tipo;
              lav.Id = idCounter++;
+             int status = 0;
+            if (lav.Tipo.nombre == "La Joya")
+            {
+
+                if (!lav.precio.HasValue)
+                {
+                    return -1;
+
+                }
+
+
+                tipo.precio = lav.precio;
+            }
+            else
+            {
+
+                lav.precio = tipo.precio;
+            }
+
+             lav.precio_con_iva = obtenerPrecioConIva(lav.precio);
             _lavados.Add(lav.Id, lav);
+
+        
             _ids.Add(lav.Id);
             
             return _lavados.Count;
-           
-        }
+           }
          
 
         public static bool ExisteLavado(int id)
@@ -139,8 +160,7 @@ namespace Proyecto1.Repositiories
 
         }
 
-        public static decimal PrecioConIva(decimal? precio)
-        {
+        public static decimal obtenerPrecioConIva(decimal? precio) {
             {
                 if (precio.HasValue == true)
                     return precio.Value * (1 + Iva);

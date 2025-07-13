@@ -16,10 +16,10 @@ namespace Proyecto1.Controllers
         public IActionResult CrearCliente([FromBody] Cliente cliente)
         {
 
-
-            if (!ModelState.IsValid) {
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
-                
+
             }
 
             if (!cliente.Identificacion.HasValue)
@@ -28,7 +28,7 @@ namespace Proyecto1.Controllers
                 return BadRequest(new { Message = "El campo identificación es requerido" });
             }
 
-            
+
             int response = ClienteRepository.AgregarCliente(cliente);
 
 
@@ -73,8 +73,8 @@ namespace Proyecto1.Controllers
             }
             else
             {
-                
-                
+
+
                 return Accepted(new { Message = "Todavía no se registra ningún cliente" });
 
             }
@@ -103,11 +103,13 @@ namespace Proyecto1.Controllers
                     return Conflict(new { Message = $"No existe ningun cliente con el id {id}" });
                 }
 
-            }else{
-                
+            }
+            else
+            {
+
                 return BadRequest(new { Message = "Se esperaba un id como query param" });
             }
-            
+
 
 
         }
@@ -116,10 +118,11 @@ namespace Proyecto1.Controllers
         public IActionResult EditarCliente([FromBody] Cliente cliente)
         {
 
-            
-            if (!ModelState.IsValid) {
+
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
-                
+
             }
 
             int res = ClienteRepository.ReemplazarCliente(cliente);
@@ -140,7 +143,20 @@ namespace Proyecto1.Controllers
 
 
         }
+        
+        
 
+        [HttpGet("buscar")]
+        public IActionResult BuscarEmpleado([FromQuery] int id)
+        {
+            var cliente = ClienteRepository.BuscarCliente(id);
+
+            if (cliente != null)
+                return Ok(cliente);
+
+            return NotFound(new { Message = "Cliente no encontrado" });
+        }
+ 
         
 
 

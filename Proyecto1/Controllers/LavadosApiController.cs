@@ -25,25 +25,28 @@ namespace Proyecto1.Controllers
                  
                 int res = LavadoRepository.AgregarLavado(lavado,tipo);
 
-                if (res != -1)
+                switch (res)
                 {
+                    
+                     case >0 :
+                     return Ok(new { message = "El lavado fue agregado con exito", count = res });
 
+                    case 0:
 
-                    return Ok(lavado.Tipo);
+                         return BadRequest(new { message = "No se pudo agregar el lavado" });
+
+                    case -1:
+
+                    return BadRequest(new { message = "En la Joya se necesita el precio" }); 
+
                 }
-                else
-                {
 
-                    return BadRequest(new { message = "No se pudo agregar el lavado" });
-                }
-                               
-               
+                   
             }
-            else
-            {
+
 
                 return BadRequest(new { me = ModelState });
-            }
+            
 
 
         }
