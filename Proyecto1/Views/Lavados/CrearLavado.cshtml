@@ -17,7 +17,7 @@
             </select>
 
             <label for="Placa">Placa:</label>
-            <input type="text" name="Placa" maxlength="20" required />
+            <input type="text" name="Plajca" maxlength="20" required />
 
             <label for="IdCliente">ID Cliente:</label>
             <input type="number" name="IdCliente" required />
@@ -31,7 +31,7 @@
 
             <div style="display:none " id="JoyaDiv">
                 <label for="Precio" style="margin-bottom:5px">Precio Acordado</label>
-                <input type="number" name="Precio" />
+                <input value="0" type="number" name="Precio" />
             </div>
             <button type="submit">Crear lavado</button>
         </form>
@@ -41,7 +41,6 @@
     </div>
 
    
-
 </section>
 
 <script>
@@ -63,17 +62,17 @@
 
     })
 
-let form_clientes = document.getElementById("form_lavados");
+let form_lavados = document.getElementById("form_lavados");
 
-let elementos = form_clientes.elements
+let elementos = form_lavados.elements
 
-form_clientes.addEventListener("submit",(e)=>{
+form_lavados.addEventListener("submit",(e)=>{
 let dict = {}
 e.preventDefault()
 
 for(let i=0;i<elementos.length;i++){
     let currentElement = elementos[i]
-    if (currentElement.tag="INPUT" && currentElement.type!="hidden"){
+    if (currentElement.tagName==="INPUT" || currentElement.tagName === "SELECT" && currentElement.type!="hidden"){
        
         let key = currentElement.name
         let value = currentElement.value

@@ -15,7 +15,7 @@
     <h1>@ViewData["title"]</h1>
 
     <div class="form-container">
-        <form asp-action="ReemplazarVehiculo" method="post">
+        <form id="form_vehiculos">
             <label for="Placa">Placa:</label>
             <input type="text" id="Placa" name="Placa" required value="@Model.Placa" maxlength="20" readonly />
 
@@ -44,6 +44,70 @@
         </form>
     </div>
 </section>
+
+
+
+<script>
+
+
+  const form = document.getElementById("form_vehiculos");
+  const elements = form.elements;
+  let input_placa = document.getElementById("Placa");
+  let  status = true
+
+  const checkType = (type, value) => {
+    if (type === "number") return Number(value);
+    return value;
+  };
+
+ 
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let dict = {};
+
+    for (let i = 0; i < elements.length; i++) {
+      if (elements[i].tagName === "INPUT" && elements[i].type !== "hidden") {
+        const currentTag = elements[i];
+        const currentKey = currentTag.name;
+        const currentValueType = currentTag.type;
+        const currentValue = currentTag.value;
+
+        dict[currentKey] = checkType(currentValueType, currentValue);
+      }
+    }
+
+    console.log("Datos del formulario:", dict);
+    if(status ==  true){
+    fetch('/api/vehiculos', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dict)
+    })
+    .then(res => {
+      if (res.ok) {
+        console.log('Empleado creado con éxito');
+        window.location.href = '/Vehiculos/MostrarVehiculos';
+      } else {
+        return res.json().then(error => {
+          console.error('Error desde el servidor:', error);
+          alert(error.message || "Hubo un error al crear el empleado");
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Error de red:', error);
+      alert('Error de red o del servidor');
+    });
+
+
+    }
+  });
+</script>
+
+
+
 
 
 

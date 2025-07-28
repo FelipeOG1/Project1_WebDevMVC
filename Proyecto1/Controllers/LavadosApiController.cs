@@ -19,27 +19,30 @@ namespace Proyecto1.Controllers
 
                 TipoLavado tipo = LavadoRepository.inicializarTipo(nombreLavado);
 
-                string resultado = tipo.nombre;
 
                 lavado.Tipo = tipo;
                  
                 int res = LavadoRepository.AgregarLavado(lavado,tipo);
 
+                Console.WriteLine(res);
+
                 switch (res)
                 {
-                    
-                     case >0 :
-                     return Ok(new { message = "El lavado fue agregado con exito", count = res });
+
+                    case > 0:
+                        return Ok(new { message = "El lavado fue agregado con exito", count = res });
 
                     case 0:
 
-                         return BadRequest(new { message = "No se pudo agregar el lavado" });
+                        return BadRequest(new { message = "No se pudo agregar el lavado" });
 
                     case -1:
 
-                    return BadRequest(new { message = "En la Joya se necesita el precio" }); 
+                        return BadRequest(new { message = "En la Joya se necesita el precio" });
 
-                }
+                    case -2:
+                        return BadRequest(new { message = "La placa o el id cliente son incorrectos" });
+                }  
 
                    
             }
@@ -47,7 +50,6 @@ namespace Proyecto1.Controllers
 
                 return BadRequest(new { me = ModelState });
             
-
 
         }
 
@@ -62,8 +64,7 @@ namespace Proyecto1.Controllers
                 {
                     Count = lavados.Count,
                     Lavados = lavados,
-
-                    
+                   
                 });
             }
 
@@ -87,10 +88,17 @@ namespace Proyecto1.Controllers
         [HttpPut]
         public IActionResult EditarLavado([FromBody] Lavado lavado)
         {
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            int res = LavadoRepository.ReemplazarLavado(lavado);
+                string nombreLavado = lavado.nombreTipo;
+
+                TipoLavado tipo = LavadoRepository.inicializarTipo(nombreLavado);
+
+                lavado.Tipo = tipo;
+                 
+                int res = LavadoRepository.ReemplazarLavado(lavado,tipo);
 
             if (res == -1)
                 return Conflict(new { Message = "No existe un lavado con ese ID." });

@@ -1,98 +1,173 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Proyecto1.Models;
+using System.Text.Json.Nodes;
+using System.Net;
+using System.Text.Json;
+using System.Reflection.Metadata.Ecma335;
+using Microsoft.AspNetCore.Antiforgery;
+
+
+
 
 namespace Proyecto1.Controllers
 {
-    public class VehiculosController: Controller
+    public class VehiculosController : Controller
     {
 
-        [HttpGet]
-        public IActionResult Index()
+        private readonly string URL = "http://localhost:5055/api/vehiculos";
+
+        private readonly HttpClient _httpClient;
+
+        private JsonSerializerOptions? options = new JsonSerializerOptions
         {
-   
+            PropertyNameCaseInsensitive = true
+        };
 
-
-
-
-            return View();
+        public VehiculosController(IHttpClientFactory httpClientFactory)
+        {
+            _httpClient = httpClientFactory.CreateClient();
         }
 
-
-
         [HttpGet]
-
-        public IActionResult CrearVehiculo()
+       async public Task<IActionResult>  MostrarVehiculos()
         {
 
-            return View();
-        }
+            HttpResponseMessage response = await _httpClient.GetAsync(URL);
 
+            int res = (int)response.StatusCode;
 
-
-
-        [HttpPost]
-        public IActionResult CrearVehiculo(Vehiculo ve )
-        {
-
-          
-            if (!ModelState.IsValid)
+            List<Vehiculo>? lista_vehiculos = new List<Vehiculo>();
+            switch (res)
             {
-                return View(ve); 
+                case 202:
+
+                    ViewData["Message"] = "Todavia no se registran clients";
+
+                    break;
+                case 200:
+                    string json_string = await response.Content.ReadAsStringAsync();
+                    JsonNode? root = JsonNode.Parse(json_string);
+
+
+                    if (root != null && root["vehiculos"] is JsonArray VehiculosNode)
+                    {
+
+                        lista_vehiculos = JsonSerializer.Deserialize<List<Vehiculo>>(VehiculosNode.ToJsonString(), options);
+
+                    }
+                    break;
+
             }
 
+            return View(lista_vehiculos);
 
 
-            return RedirectToAction("Index");
+
+
         }
 
 
         [HttpGet]
-        public IActionResult EditarVehiculo(string placa)
+
+         public IActionResult CrearVehiculo()
         {
-
-
 
             return View();
-
-
         }
 
- 
-        public IActionResult ReemplazarVehiculo(Vehiculo vehiculoActualizado)
+
+        [HttpGet]
+        async public Task<IActionResult> EditarVehiculo(string placa)
         {
-            if (!ModelState.IsValid)
+
+            HttpResponseMessage response = await _httpClient.GetAsync($"{URL}/buscar/?placa={placa}");
+
+
+
+            int res = (int)response.StatusCode;
+
+            Vehiculo? vehiculo = new Vehiculo ();
+
+            switch (res)
             {
-                return View("EditarEmpleado", vehiculoActualizado); // En caso de error de validación
-             }
 
-          
+                case 200:
+                    string json_string = await response.Content.ReadAsStringAsync();
 
-            return RedirectToAction("Index");
+                    vehiculo = JsonSerializer.Deserialize<Vehiculo>(json_string, options);
+
+
+
+                    break;
+
+                case 404:
+
+                    break;
+
+            }
+            return View(vehiculo);
 
         }
-
-
 
         [HttpPost]
-        public IActionResult BuscarVehiculo(string placa)
+        async public Task<IActionResult> BuscarVehiculo(string placa)
         {
 
-        
-            TempData["Mensaje"] = "No existe ningun vehiculo con esa placa";
+            Console.WriteLine(placa);
 
-            return RedirectToAction("Index");
+
+            HttpResponseMessage response = await _httpClient.GetAsync($"{URL}/buscar/?placa={placa}");
+
+            int res = (int)response.StatusCode;
+
+            Vehiculo? vehiculo = new Vehiculo();
+
+            switch (res)
+            {
+
+                case 200:
+                    string json_string = await response.Content.ReadAsStringAsync();
+
+                    vehiculo = JsonSerializer.Deserialize<Vehiculo>(json_string, options);
+
+
+                    return RedirectToAction("EditarVehiculo", new { placa =vehiculo.Placa });
+
+                default:
+                    TempData["Mensaje"] = "No existe ningun vehiculo con esa placa";
+
+                    return RedirectToAction("MostrarVehiculos");
+
+            }
+
         }
 
-
-
-        public IActionResult EliminarVehiculo(string placa)
+        async public Task<IActionResult> EliminarVehiculo(string placa)
         {
 
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"{URL}/?placa={placa}");
+            int res = (int)response.StatusCode;
+
+            switch (res)
+            {
+
+                case 200:
+
+
+                    break;
+
+                case 404:
+
+                    break;
+
+            }
+            return RedirectToAction("MostrarVehiculos");
 
 
 
-            return RedirectToAction("Index");
+
+
         }
 
 

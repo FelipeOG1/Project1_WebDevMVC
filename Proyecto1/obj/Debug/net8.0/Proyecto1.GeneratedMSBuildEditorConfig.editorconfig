@@ -9,89 +9,89 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Proyecto1
 build_property.RootNamespace = Proyecto1
-build_property.ProjectDir = D:\FundamentosWeb\Proyecto1 - copia\Proyecto1\
+build_property.ProjectDir = C:\Uned\Fundamentos web\Proyecto1\Proyecto1\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\FundamentosWeb\Proyecto1 - copia\Proyecto1
+build_property.MSBuildProjectDirectory = C:\Uned\Fundamentos web\Proyecto1\Proyecto1
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/Clientes/CrearCliente.cshtml]
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/Clientes/CrearCliente.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZXNcQ3JlYXJDbGllbnRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/Clientes/EditarCliente.cshtml]
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/Clientes/EditarCliente.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZXNcRWRpdGFyQ2xpZW50ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/Clientes/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZXNcSW5kZXguY3NodG1s
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/Clientes/MostrarClientes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZXNcTW9zdHJhckNsaWVudGVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/Empleados/CrearEmpleado.cshtml]
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/Empleados/CrearEmpleado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9zXENyZWFyRW1wbGVhZG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/Empleados/EditarEmpleado.cshtml]
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/Empleados/EditarEmpleado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9zXEVkaXRhckVtcGxlYWRvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/Empleados/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9zXEluZGV4LmNzaHRtbA==
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/Empleados/MostrarEmpleados.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9zXE1vc3RyYXJFbXBsZWFkb3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/Home/Index.cshtml]
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/Home/Privacy.cshtml]
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/Lavados/CrearLavado.cshtml]
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/Lavados/CrearLavado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGF2YWRvc1xDcmVhckxhdmFkby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/Lavados/EditarLavado.cshtml]
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/Lavados/EditarLavado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGF2YWRvc1xFZGl0YXJMYXZhZG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/Lavados/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGF2YWRvc1xJbmRleC5jc2h0bWw=
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/Lavados/MostrarLavados.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGF2YWRvc1xNb3N0cmFyTGF2YWRvcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/Shared/Error.cshtml]
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/Vehiculos/CrearVehiculo.cshtml]
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/Vehiculos/CrearVehiculo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWN1bG9zXENyZWFyVmVoaWN1bG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/Vehiculos/EditarVehiculo.cshtml]
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/Vehiculos/EditarVehiculo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWN1bG9zXEVkaXRhclZlaGljdWxvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/Vehiculos/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWN1bG9zXEluZGV4LmNzaHRtbA==
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/Vehiculos/MostrarVehiculos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWN1bG9zXE1vc3RyYXJWZWhpY3Vsb3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/_ViewImports.cshtml]
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/_ViewStart.cshtml]
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/FundamentosWeb/Proyecto1 - copia/Proyecto1/Views/Shared/_Layout.cshtml]
+[C:/Uned/Fundamentos web/Proyecto1/Proyecto1/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-odyvjbrlxg

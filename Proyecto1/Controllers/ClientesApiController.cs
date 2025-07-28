@@ -147,7 +147,7 @@ namespace Proyecto1.Controllers
         
 
         [HttpGet("buscar")]
-        public IActionResult BuscarEmpleado([FromQuery] int id)
+        public IActionResult BuscarCliente([FromQuery] int id)
         {
             var cliente = ClienteRepository.BuscarCliente(id);
 

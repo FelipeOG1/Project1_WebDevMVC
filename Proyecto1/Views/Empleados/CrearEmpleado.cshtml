@@ -52,31 +52,7 @@
     return value;
   };
 
-  input_cedula.addEventListener("blur", () => {
-    fetch(`/api/empleados/buscar/?id=${input_cedula.value}`, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => {
-      if (res.ok) {
-        alert("Ya existe esta cédula");
-        error_span.innerHTML = "Ya existe esta cedula";
-        error_span.style.display = "inline";
-
-
-        status=false
-      } else {
-        status = true
-        error_span.style.display = "None";
-      }
-    })
-    .catch(err => {
-      console.error("Error al buscar la cédula:", err);
-    });
-  });
-
-  
+   
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     let dict = {};

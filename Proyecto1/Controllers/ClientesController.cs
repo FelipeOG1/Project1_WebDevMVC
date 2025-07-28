@@ -132,13 +132,36 @@ namespace Proyecto1.Controllers
       
 
         [HttpPost]
-        public IActionResult BuscarCliente(int identificacion)
+        async public Task<IActionResult> BuscarCliente(int identificacion)
         {
 
-            TempData["Mensaje"] = "No existe un usuario con esa cedula";
-            return RedirectToAction("Index");
 
-            
+            Console.WriteLine(identificacion);
+            HttpResponseMessage response = await _httpClient.GetAsync($"{URL}/buscar/?id={identificacion}");
+
+            int res = (int)response.StatusCode;
+
+            Cliente? cliente = new Cliente();
+
+            switch (res)
+            {
+
+                case 200:
+                    string json_string = await response.Content.ReadAsStringAsync();
+
+                     cliente = JsonSerializer.Deserialize<Cliente>(json_string, options);
+
+
+                    return RedirectToAction("EditarCliente", new { identificacion =cliente.Identificacion});
+
+                default:
+                    TempData["Mensaje"] = "No existe ningun vehiculo con esa placa";
+
+                    return RedirectToAction("MostrarCLientes");
+
+
+            }
+
         }
 
 
@@ -146,9 +169,6 @@ namespace Proyecto1.Controllers
         public IActionResult CrearCliente(Cliente cl)
         {
 
-
-
-                
 
 
             return RedirectToAction("Index");  

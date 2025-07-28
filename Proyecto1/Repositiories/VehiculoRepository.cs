@@ -50,8 +50,8 @@ namespace Proyecto1.Repositiories
             }
 
             return null;
-        
-        
+
+
         }
 
         public static bool ExisteVehiculo(string placa)
@@ -61,12 +61,12 @@ namespace Proyecto1.Repositiories
 
             return false;
 
-            
+
         }
 
 
 
-       public static Vehiculo ReemplazarVehiculo(Vehiculo ve)
+        public static Vehiculo ReemplazarVehiculo(Vehiculo ve)
         {
 
             if (_placas.Contains(ve.Placa))
@@ -80,11 +80,27 @@ namespace Proyecto1.Repositiories
 
 
             return null;
-            
 
             
 
+        }
+        
 
+         public static void inicializarVehiculoorDefecto()
+        {
+
+            Vehiculo vehiculo = new Vehiculo
+        {
+            Placa = "ABC123",
+            Marca = "Toyota",
+            Modelo = "RAV4",
+            Traccion = "4x4",
+            Color = "Rojo",
+            UltimaFechaAtencion = new DateTime(2024, 12, 10),
+            TratamientoEspecialNano = true
+        };
+
+            VehiculoRepository.AgregarVehiculo(vehiculo);
         }
 
 

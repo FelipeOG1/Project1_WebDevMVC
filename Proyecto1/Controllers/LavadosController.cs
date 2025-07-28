@@ -71,7 +71,6 @@ namespace Proyecto1.Controllers
         public IActionResult CrearLavado()
         {
 
-
             return View();
 
         }
@@ -80,11 +79,13 @@ namespace Proyecto1.Controllers
         [HttpPost]
         async public Task<IActionResult> BuscarLavado(int id)
         {
+
+            Console.WriteLine(id);
             HttpResponseMessage response = await _httpClient.GetAsync($"{URL}/buscar/?id={id}");
 
             int res = (int)response.StatusCode;
 
-            Empleado? empleado = new Empleado();
+            Lavado?  lavado = new Lavado();
 
             switch (res)
             {
@@ -92,15 +93,15 @@ namespace Proyecto1.Controllers
                 case 200:
                     string json_string = await response.Content.ReadAsStringAsync();
 
-                    empleado = JsonSerializer.Deserialize<Empleado>(json_string, options);
+                    lavado = JsonSerializer.Deserialize<Lavado>(json_string, options);
 
 
-                    return RedirectToAction("EditarEmpleado", new { cedula = empleado.Cedula });
+                    return RedirectToAction("EditarLavado", new { id = lavado.Id});
 
                 default :
-                    TempData["Mensaje"] = "No existe ningun empleado con esa cedula";
+                    TempData["Mensaje"] = "No existe ningun lavado con ese Id";
 
-                    return RedirectToAction("MostrarEmpleados");
+                    return RedirectToAction("MostrarLavados");
 
 
             }           
@@ -112,7 +113,6 @@ namespace Proyecto1.Controllers
         }
 
 
-
         [HttpGet]
        async public Task<IActionResult> EditarLavado(int id)
         {
@@ -122,7 +122,7 @@ namespace Proyecto1.Controllers
             
             int res = (int)response.StatusCode;
 
-            Cliente? cliente = new Cliente();
+            Lavado? lavado  = new Lavado();
 
             switch (res)
             {
@@ -130,25 +130,18 @@ namespace Proyecto1.Controllers
                 case 200:
                     string json_string = await response.Content.ReadAsStringAsync();
 
-                    cliente = JsonSerializer.Deserialize<Cliente>(json_string, options);
+                    lavado = JsonSerializer.Deserialize<Lavado>(json_string, options);
 
-                    Console.WriteLine("mama");
 
 
                     break;
 
                 case 404:
-                    Console.WriteLine("aaaa");
 
                     break;
 
             }
-            return View(cliente);
-
-
-           Lavado lavado = Lavado.BucarLavadoPorId(id);
-
-           return View(lavado); 
+            return View(lavado);
 
 
         }
@@ -178,7 +171,6 @@ namespace Proyecto1.Controllers
             return RedirectToAction("MostrarLavados");
 
            
-
 
        
         }

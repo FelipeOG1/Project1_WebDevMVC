@@ -15,8 +15,6 @@
     </section>
     
 
-
-
 }
 else
 {
@@ -24,7 +22,7 @@ else
     <div class="search-container">
         <form asp-action="BuscarVehiculo" asp-controller="Vehiculos" method="post">
             <label for="placa">Buscar Vehiculo por placa:</label>
-            <input type="number" id="placa" name="placa" required />
+            <input type="text" id="placa" name="placa" required />
 
             <button type="submit">Buscar Vehiculo</button>
 
@@ -45,6 +43,7 @@ else
                 <th>Ultima fecha de atencion</th>
                 <th>Color</th>
                 <th>Traccion</th>
+                <th>Marca</th>
                 <th>Modelo</th>
                 <th>Tratamiento Nano</th>
                 <th>Acciones</th>
@@ -58,6 +57,7 @@ else
                     <td>@vehiculo.UltimaFechaAtencion.ToShortDateString()</td>
                     <td>@vehiculo.Color</td>
                     <td>@vehiculo.Traccion</td>
+                    <td>@vehiculo.Marca</td>
                     <td>@vehiculo.Modelo</td>
                     <td>@(vehiculo.TratamientoEspecialNano==true?"Si":"No")</td>
                    <td>
@@ -76,7 +76,6 @@ else
 
     <div class="tableIndex-button-container">
         <button onclick="location.href='@Url.Action("CrearVehiculo","Vehiculos")'">Agregar vehiculo</button>
-
 
     </div>
 

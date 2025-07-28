@@ -19,7 +19,7 @@ else
     <div class="search-container">
         <form asp-action="BuscarLavado" asp-controller="Lavados" method="post">
             <label for="identificacion">Buscar Lavado por Id:</label>
-            <input type="number" id="idLavado" name="idLavado" required />
+            <input type="number" id="id" name="id" required />
 
              <button type="submit">Buscar Lavado</button>
         
@@ -90,7 +90,9 @@ else
     </table>
 
     <div class="tableIndex-button-container">
-        <button onclick="location.href='@Url.Action("CrearLavado", "Lavados")'">Agregar Lavado</button>
+
+               <button onclick="location.href='@Url.Action("CrearLavado", "Lavados")'">Agregar Nuevo Lavado</button>
+
     </div>
 
 

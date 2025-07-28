@@ -10,9 +10,9 @@
     <div class="form-container">
 
        
-        <form asp-action="ReemplazarLavado" asp-controller="Lavados" method="post">
+        <form id="form_lavados" >
             <label for="TipoNombre">Tipo de Lavado:</label>
-            <select id="TipoNombre" name="TipoNombre" class="minima-dropdown">
+            <select id="TipoNombre" name="nombreTipo" class="minima-dropdown">
                 <option value="Básico">Básico</option>
                 <option value="Premium">Premium</option>
                 <option value="Deluxe">Deluxe</option>
@@ -53,7 +53,7 @@
 
 
   document.addEventListener("DOMContentLoaded", function () {
-      
+
 
       let nombreTipo=document.getElementById("tipo").innerHTML
 
@@ -93,8 +93,6 @@
       }
                
 }); 
-
-
     let select = document.getElementById("TipoNombre")
 
     let div = document.getElementById("JoyaDiv")
@@ -107,7 +105,7 @@
 
             inputPrecio.required = true;
 
-            inputPrecio.value = " ";
+            inputPrecio.value = 0;
 
         } else {
 
@@ -115,11 +113,65 @@
 
             div.style.display = "none";
 
-            inputPrecio.value = " ";
+            inputPrecio.value =0;
             inputPrecio.required=false;
-
-           
+          
         }
    
     })
+
+
+let form_lavados = document.getElementById("form_lavados");
+
+let elementos = form_lavados.elements
+
+form_lavados.addEventListener("submit",(e)=>{
+let dict = {}
+e.preventDefault()
+
+for(let i=0;i<elementos.length;i++){
+    let currentElement = elementos[i]
+    if (currentElement.tagName==="INPUT" || currentElement.tagName === "SELECT" && currentElement.type!="hidden"){
+       
+        let key = currentElement.name
+        let value = currentElement.value
+
+       dict[key] = value
+        
+    }
+
+    
+}
+console.log(dict);
+
+ fetch('/api/lavados', {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(dict)
+})
+.then(res => {
+
+  if (res.ok) {
+    console.log('Cliente creado con éxito');
+    
+    window.location.href = '/Lavados/MostrarLavados'; 
+  } else {
+    return res.json().then(error => {
+      console.error('Error desde el servidor:', error);
+      alert(error.message || "Hubo un error al crear el empleado");
+    });
+  }
+})
+.catch(error => {
+  console.error('Error de red:', error);
+  alert('Error de red o del servidor');
+});
+
+})
+
+
+
+
 </script>

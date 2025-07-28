@@ -8,7 +8,7 @@ namespace Proyecto1.Repositiories
 
     public class LavadoRepository
     {
-        
+
 
         private static int idCounter = 1;
         private static Dictionary<int, Lavado> _lavados = new Dictionary<int, Lavado>();
@@ -56,12 +56,37 @@ namespace Proyecto1.Repositiories
         }
 
 
-   
-         public static int AgregarLavado(Lavado lav,TipoLavado tipo)
+
+        public static int AgregarLavado(Lavado lav, TipoLavado tipo)
         {
-             lav.Tipo = tipo;
-             lav.Id = idCounter++;
-             int status = 0;
+
+            if (_ids.Contains(lav.Id))
+            {
+
+                return -1;
+            }
+
+            int id_cliente = lav.IdCLiente;
+            string placa_vehiculo = lav.Placa;
+            bool respuestaCliente = ClienteRepository.ExisteCliente(id_cliente);
+            bool respuestaVehiculo = VehiculoRepository.ExisteVehiculo(placa_vehiculo);
+
+            if (!respuestaCliente || !respuestaVehiculo)
+            {
+
+                return -2;
+            }
+
+            Cliente clienteLavado = ClienteRepository.BuscarCliente(id_cliente);
+            Vehiculo clienteVehiculo = VehiculoRepository.BuscarVehiculoPorPlaca(placa_vehiculo);
+
+
+
+            int currentId = idCounter++;
+            lav.cliente = clienteLavado;
+            lav.vehiculo = clienteVehiculo;
+            lav.Tipo = tipo;
+            lav.Id = idCounter++;
             if (lav.Tipo.nombre == "La Joya")
             {
 
@@ -71,7 +96,6 @@ namespace Proyecto1.Repositiories
 
                 }
 
-
                 tipo.precio = lav.precio;
             }
             else
@@ -80,37 +104,38 @@ namespace Proyecto1.Repositiories
                 lav.precio = tipo.precio;
             }
 
-             lav.precio_con_iva = obtenerPrecioConIva(lav.precio);
+            lav.precio_con_iva = obtenerPrecioConIva(lav.precio);
+
             _lavados.Add(lav.Id, lav);
 
-        
+
             _ids.Add(lav.Id);
-            
+
             return _lavados.Count;
-           }
-         
+        }
+
 
         public static bool ExisteLavado(int id)
         {
 
             if (_ids.Contains(id)) return true;
 
-            return false;   
-        
-       
+            return false;
+
+
         }
 
         public static List<Lavado> MostrarLavados()
         {
 
-           return _lavados.Values.ToList();
-            
+            return _lavados.Values.ToList();
+
         }
 
         public static Lavado BucarLavadoPorId(int id)
-        {  
+        {
 
-        
+
 
             if (ExisteLavado(id))
             {
@@ -126,10 +151,35 @@ namespace Proyecto1.Repositiories
         }
 
 
-        public static int ReemplazarLavado(Lavado nuevoLavado) {
+        public static int ReemplazarLavado(Lavado nuevoLavado, TipoLavado tipo)
+        {
 
-            int id=nuevoLavado.Id;
-            if (ExisteLavado(id)){
+
+
+            int id = nuevoLavado.Id;
+            if (ExisteLavado(id))
+            {
+
+                nuevoLavado.Tipo = tipo;
+                if (nuevoLavado.Tipo.nombre == "La Joya")
+                {
+
+                    if (!nuevoLavado.precio.HasValue)
+                    {
+                        return -1;
+
+                    }
+
+                    tipo.precio = nuevoLavado.precio;
+                }
+                else
+                {
+
+                    nuevoLavado.precio = tipo.precio;
+                }
+
+                nuevoLavado.precio_con_iva = obtenerPrecioConIva(nuevoLavado.precio);
+
 
                 _lavados[id] = nuevoLavado;
 
@@ -139,7 +189,7 @@ namespace Proyecto1.Repositiories
             }
 
             return -1;
-        
+
         }
 
         public static int EliminarLavado(int id)
@@ -149,7 +199,7 @@ namespace Proyecto1.Repositiories
             {
                 _lavados.Remove(id);
 
-                return _lavados.Count(); 
+                return _lavados.Count();
             }
             else
             {
@@ -160,7 +210,8 @@ namespace Proyecto1.Repositiories
 
         }
 
-        public static decimal obtenerPrecioConIva(decimal? precio) {
+        public static decimal obtenerPrecioConIva(decimal? precio)
+        {
             {
                 if (precio.HasValue == true)
                     return precio.Value * (1 + Iva);
@@ -168,6 +219,29 @@ namespace Proyecto1.Repositiories
             }
         }
 
+
+        public static void inicialiarLavadoPorDefecto()
+        {
+
+            Lavado lavado = new Lavado
+            {
+                Placa = "ABC123",
+                IdCLiente = 118540660,
+                Estado = EstadoLavado.EnProceso,
+                nombreTipo = "deluxe",
+
+            };
+
+            TipoLavado tipo = inicializarTipo(lavado.nombreTipo);
+
+            int res = LavadoRepository.AgregarLavado(lavado, tipo);
+
+            Console.WriteLine(res);
+            
+            
+        }
+
+     
         
  
     }

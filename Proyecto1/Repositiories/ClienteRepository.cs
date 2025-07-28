@@ -10,11 +10,11 @@ namespace Proyecto1.Repositiories
 
         private static Dictionary<int, Cliente> _clientes = new Dictionary<int, Cliente>();
         private static HashSet<int> _identificaciones = new HashSet<int>();
-       
 
-         public static int AgregarCliente(Cliente cliente)
+
+        public static int AgregarCliente(Cliente cliente)
         {
-             
+
             int id = cliente.Identificacion.Value;
 
             if (ExisteCliente(id))
@@ -63,7 +63,7 @@ namespace Proyecto1.Repositiories
         public static int ReemplazarCliente(Cliente nuevoCliente)
         {
 
-            
+
             int id = nuevoCliente.Identificacion.Value;
 
             if (ExisteCliente(id))
@@ -79,7 +79,26 @@ namespace Proyecto1.Repositiories
             }
 
             return 0;
-            
+
+        }
+
+        public static void inicializarClientePorDefecto()
+        {
+
+            Cliente cliente = new Cliente
+            {
+                Identificacion = 118540660,
+                NombreCompleto = "Martin del campo",
+                Provincia = "San José",
+                Canton = "San vicente",
+                Distrito = "Moravia",
+                DireccionExacta = "Del súper 100m norte",
+                Telefono = "88888888",
+                PreferenciaLavado = 0,
+
+            };
+
+            ClienteRepository.AgregarCliente(cliente);
         }
     }
 }

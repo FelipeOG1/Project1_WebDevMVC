@@ -1,0 +1,27 @@
+# Archivos de Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build results
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+
+# Archivos temporales
+*.log
+*.cache
+*.db
+*.vsidx
+*.shm
+*.wal
+
+# VS Code
+.vscode/
+
+# Otros
+*.swp
+*.DS_Store
+Thumbs.db
