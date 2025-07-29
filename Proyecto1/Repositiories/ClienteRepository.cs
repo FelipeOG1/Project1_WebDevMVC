@@ -1,39 +1,49 @@
-﻿using System.Diagnostics.Tracing;
+﻿using System.ComponentModel;
+using System.Diagnostics.Tracing;
 using System.Net;
+using Proyecto1.Data;
 using Proyecto1.Models;
 
 namespace Proyecto1.Repositiories
 {
-    public class ClienteRepository
+    public class ClienteRepository : IClienteRepository
     {
-
-
-        private static Dictionary<int, Cliente> _clientes = new Dictionary<int, Cliente>();
-        private static HashSet<int> _identificaciones = new HashSet<int>();
-
-
-        public static int AgregarCliente(Cliente cliente)
+        private readonly AppDbContext _context;
+        
+        public ClienteRepository(AppDbContext context)
+        {
+            _context = context;
+        }
+        public async Task<int> AgregarCliente(Cliente cliente)
         {
 
-            int id = cliente.Identificacion.Value;
+            int? id = cliente.Identificacion.Value;
 
-            if (ExisteCliente(id))
+            if (await ExisteCliente(id.Value))
             {
                 return -1;
             }
 
-            _clientes.Add(id, cliente);
-            _identificaciones.Add(id);
+            await _context.Clientes.AddAsync(cliente);
 
-            return _clientes.Count;
+            int result = await _context.SaveChangesAsync();
+
+            return result;
+
         }
 
-        public static bool ExisteCliente(int identificacion)
+        public async Task<bool> ExisteCliente(int identificacion)
         {
-            return _identificaciones.Contains(identificacion);
+            var cliente = await _context.Clientes.FindAsync(identificacion);
+
+            bool response = cliente != null ? true : false;
+
+
+            return response; 
+           
         }
 
-        public static int EliminarCliente(int identificacion)
+        public  int EliminarCliente(int identificacion)
         {
             if (ExisteCliente(identificacion))
             {
@@ -45,12 +55,12 @@ namespace Proyecto1.Repositiories
             return -1;
         }
 
-        public static List<Cliente> MostrarClientes()
+        public  List<Cliente> MostrarClientes()
         {
             return new List<Cliente>(_clientes.Values);
         }
 
-        public static Cliente BuscarCliente(int identificacion)
+        public  Cliente BuscarCliente(int identificacion)
         {
             if (ExisteCliente(identificacion))
             {
@@ -60,7 +70,7 @@ namespace Proyecto1.Repositiories
             return null;
         }
 
-        public static int ReemplazarCliente(Cliente nuevoCliente)
+        public  int ReemplazarCliente(Cliente nuevoCliente)
         {
 
 
@@ -82,7 +92,7 @@ namespace Proyecto1.Repositiories
 
         }
 
-        public static void inicializarClientePorDefecto()
+        public  void inicializarClientePorDefecto()
         {
 
             Cliente cliente = new Cliente
