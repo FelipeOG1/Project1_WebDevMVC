@@ -12,7 +12,7 @@ namespace Proyecto1.Models
             Mensual,
         }
 
-            [Required]
+            [Required][Key]
             public int? Identificacion { get; set; }
             [Required]
             public string NombreCompleto { get; set; }

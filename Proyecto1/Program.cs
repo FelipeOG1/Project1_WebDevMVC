@@ -2,6 +2,10 @@ using Proyecto1.Models;
 using System.Runtime.Intrinsics;
 using System.Text.Json.Serialization;
 using Proyecto1.Repositiories;
+using Proyecto1.Data;
+using Microsoft.EntityFrameworkCore;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,11 +21,15 @@ builder.Services.AddControllers()
         
     });
 
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(@"Server=FELIPEPC\SQLEXPRESS;Database=LavadosCr;Trusted_Connection=True;TrustServerCertificate=True;")
 
+);
+
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 
 var app = builder.Build();
 
-ClienteRepository.inicializarClientePorDefecto();
 EmpleadoRepository.inicializarEmpleadoPorDefecto();
 VehiculoRepository.inicializarVehiculoorDefecto();
 LavadoRepository.inicialiarLavadoPorDefecto();
