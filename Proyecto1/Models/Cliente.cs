@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace Proyecto1.Models
 {
@@ -12,7 +14,9 @@ namespace Proyecto1.Models
             Mensual,
         }
 
-            [Required][Key]
+            [Required]
+            [Key]
+            [DatabaseGenerated(DatabaseGeneratedOption.None)]
             public int? Identificacion { get; set; }
             [Required]
             public string NombreCompleto { get; set; }

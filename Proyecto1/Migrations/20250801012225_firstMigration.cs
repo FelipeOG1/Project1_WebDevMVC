@@ -5,7 +5,7 @@
 namespace Proyecto1.Migrations
 {
     /// <inheritdoc />
-    public partial class InicialCliente : Migration
+    public partial class firstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,8 +14,7 @@ namespace Proyecto1.Migrations
                 name: "Clientes",
                 columns: table => new
                 {
-                    Identificacion = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Identificacion = table.Column<int>(type: "int", nullable: false),
                     NombreCompleto = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Provincia = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Canton = table.Column<string>(type: "nvarchar(max)", nullable: false),

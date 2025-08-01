@@ -1,19 +1,27 @@
-using System.ComponentModel; using System.Diagnostics; using System.Reflection.Metadata;
+using System.ComponentModel; 
+using System.Diagnostics; 
+using System.Reflection.Metadata;
 using System.Runtime.ConstrainedExecution;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using Proyecto1.Models;
-using Proyecto1.Repositiories;
-
+using Proyecto1.Repositories;
 namespace Proyecto1.Controllers
 {
     [ApiController]
     [Route("api/clientes")]
     public class ClientesApiController : ControllerBase
     {
+        
+        private readonly IClienteRepository _clienteRepository;
+        
+          public ClientesApiController(IClienteRepository clienteRepository)
+            {
+                _clienteRepository = clienteRepository;
+            }
 
         [HttpPost]
-        public IActionResult CrearCliente([FromBody] Cliente cliente)
+        public async Task<IActionResult> CrearCliente([FromBody] Cliente cliente)
         {
 
             if (!ModelState.IsValid)
@@ -28,27 +36,36 @@ namespace Proyecto1.Controllers
                 return BadRequest(new { Message = "El campo identificación es requerido" });
             }
 
+            Console.WriteLine(cliente.Identificacion);
 
-            int response = ClienteRepository.AgregarCliente(cliente);
+            int response = await _clienteRepository.AgregarCliente(cliente);
 
-
-            if (response == -1)
+            switch (response)
             {
-                return Conflict(new
-                {
-                    Message = "Este cliente ya existe",
-                });
+                case (int)ErroresCliente.clienteYaExiste:
+
+                    return Conflict(new
+                    {
+                        Message = "Este cliente ya existe",
+                    });
+
+                case (int)ErroresCliente.clienteNoFueAgreado:
+
+                    return Conflict(new
+                    {
+                        Message = "No se logró agregar el cliente",
+
+                    });
+
             }
-
-
+   
             return Ok(new
-            {
+              {
                 Message = "Cliente Agregado con exito",
-            });
-
-
+              });
+                    
         }
-
+       /*
         [HttpGet]
         public IActionResult MostrarClientes()
         {
@@ -63,9 +80,6 @@ namespace Proyecto1.Controllers
                     Count = listaClientes.Count(),
 
                     Clientes = listaClientes,
-
-
-
 
                 };
 
@@ -140,12 +154,9 @@ namespace Proyecto1.Controllers
 
             }
 
-
-
         }
         
-        
-
+    
         [HttpGet("buscar")]
         public IActionResult BuscarCliente([FromQuery] int id)
         {
@@ -158,8 +169,7 @@ namespace Proyecto1.Controllers
         }
  
         
-
-
+*/
     }
 
     

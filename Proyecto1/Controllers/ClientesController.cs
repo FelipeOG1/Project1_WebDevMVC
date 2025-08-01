@@ -25,8 +25,6 @@ namespace Proyecto1.Controllers
             
             };
 
-
-
         public ClientesController(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -74,7 +72,6 @@ namespace Proyecto1.Controllers
         {
 
             
-
 
             return View();
 

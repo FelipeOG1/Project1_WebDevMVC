@@ -24,10 +24,7 @@ namespace Proyecto1.Migrations
             modelBuilder.Entity("Proyecto1.Models.Cliente", b =>
                 {
                     b.Property<int>("Identificacion")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Identificacion"));
 
                     b.Property<string>("Canton")
                         .IsRequired()

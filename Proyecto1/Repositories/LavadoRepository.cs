@@ -68,22 +68,13 @@ namespace Proyecto1.Repositiories
 
             int id_cliente = lav.IdCLiente;
             string placa_vehiculo = lav.Placa;
-            bool respuestaCliente = ClienteRepository.ExisteCliente(id_cliente);
             bool respuestaVehiculo = VehiculoRepository.ExisteVehiculo(placa_vehiculo);
 
-            if (!respuestaCliente || !respuestaVehiculo)
-            {
-
-                return -2;
-            }
-
-            Cliente clienteLavado = ClienteRepository.BuscarCliente(id_cliente);
             Vehiculo clienteVehiculo = VehiculoRepository.BuscarVehiculoPorPlaca(placa_vehiculo);
 
 
 
             int currentId = idCounter++;
-            lav.cliente = clienteLavado;
             lav.vehiculo = clienteVehiculo;
             lav.Tipo = tipo;
             lav.Id = idCounter++;

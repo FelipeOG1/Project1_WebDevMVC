@@ -11,8 +11,8 @@ using Proyecto1.Data;
 namespace Proyecto1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250728232855_InicialCliente")]
-    partial class InicialCliente
+    [Migration("20250801012225_firstMigration")]
+    partial class firstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,10 +27,7 @@ namespace Proyecto1.Migrations
             modelBuilder.Entity("Proyecto1.Models.Cliente", b =>
                 {
                     b.Property<int>("Identificacion")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Identificacion"));
 
                     b.Property<string>("Canton")
                         .IsRequired()
