@@ -1,11 +1,13 @@
 using System.ComponentModel; 
 using System.Diagnostics; 
 using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using Proyecto1.Models;
 using Proyecto1.Repositories;
+
 namespace Proyecto1.Controllers
 {
     [ApiController]
@@ -65,11 +67,11 @@ namespace Proyecto1.Controllers
               });
                     
         }
-       /*
+       
         [HttpGet]
-        public IActionResult MostrarClientes()
+        public async Task<IActionResult>MostrarClientes()
         {
-            List<Cliente> listaClientes = ClienteRepository.MostrarClientes();
+            List<Cliente> listaClientes = await _clienteRepository.MostrarClientes();
 
             if (listaClientes.Count() > 0)
             {
@@ -95,15 +97,16 @@ namespace Proyecto1.Controllers
 
 
         }
+        
         [HttpDelete]
-        public IActionResult EliminarCliente([FromQuery] int? id)
+        public async Task<IActionResult> EliminarCliente([FromQuery] int? id)
         {
 
             if (id.HasValue)
             {
-                int res = ClienteRepository.EliminarCliente(id.Value);
+                int res =await  _clienteRepository.EliminarCliente(id.Value);
 
-                if (res != -1)
+                if (res != (int)ErroresCliente.clienteNoEncontrado)
                 {
 
 
@@ -124,10 +127,8 @@ namespace Proyecto1.Controllers
                 return BadRequest(new { Message = "Se esperaba un id como query param" });
             }
 
-
-
         }
-
+/*
         [HttpPut]
         public IActionResult EditarCliente([FromBody] Cliente cliente)
         {

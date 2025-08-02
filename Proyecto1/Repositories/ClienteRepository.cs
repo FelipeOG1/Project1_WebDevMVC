@@ -58,7 +58,10 @@ namespace Proyecto1.Repositories
 
                 _Dbcontext.Remove(cliente);
 
+                //aqui si que podemos saber la cantidad de filas afectadas por lo que le resultado ahora se guarda dentro de un response
                 int response = await _Dbcontext.SaveChangesAsync();
+
+            
 
                 if (response > 0) return response;
 
