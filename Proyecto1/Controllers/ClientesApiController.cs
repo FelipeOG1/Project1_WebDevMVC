@@ -128,9 +128,9 @@ namespace Proyecto1.Controllers
             }
 
         }
-/*
+
         [HttpPut]
-        public IActionResult EditarCliente([FromBody] Cliente cliente)
+        public async Task<IActionResult>EditarCliente([FromBody] Cliente cliente)
         {
 
 
@@ -140,9 +140,9 @@ namespace Proyecto1.Controllers
 
             }
 
-            int res = ClienteRepository.ReemplazarCliente(cliente);
+            int res = await _clienteRepository.ActualizarCliente(cliente);
 
-            if (res != -1)
+            if (res != (int)ErroresCliente.clienteNoEncontrado)
             {
 
                 return Ok(new { Message = "Usuario editado de manera correcta" });
@@ -159,9 +159,9 @@ namespace Proyecto1.Controllers
         
     
         [HttpGet("buscar")]
-        public IActionResult BuscarCliente([FromQuery] int id)
+        public async Task<IActionResult>BuscarCliente([FromQuery] int id)
         {
-            var cliente = ClienteRepository.BuscarCliente(id);
+            var cliente = await _clienteRepository.ObtenerClientePorId(id);
 
             if (cliente != null)
                 return Ok(cliente);
@@ -170,7 +170,6 @@ namespace Proyecto1.Controllers
         }
  
         
-*/
     }
 
     
