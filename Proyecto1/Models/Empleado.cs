@@ -1,9 +1,7 @@
-﻿using AspNetCoreGeneratedDocument;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+
 
 namespace Proyecto1.Models
 {
@@ -11,18 +9,22 @@ namespace Proyecto1.Models
     {
         
         [Required]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int? Cedula { get; set; }
         [Required]
         public DateTime FechaNacimiento { get; set; }
-          [Required]
+        [Required]
         public DateTime FechaIngreso { get; set; }
-          [Required]
+        [Required][Column(TypeName = "decimal(18,2)")]
+
         public decimal SalarioPorDia { get; set; }
-          [Required]
+        [Required]
         public int DiasVacacionesAcumulados { get; set; }
-          [Required]
+        [Required]
         public DateTime? FechaRetiro { get; set; }
-          [Required]
+        [Required][Column(TypeName = "decimal(18,2)")]
+
        public decimal MontoLiquidacion { get; set; }
        
         public Empleado() { }

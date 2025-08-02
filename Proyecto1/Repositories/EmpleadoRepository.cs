@@ -1,134 +1,99 @@
-﻿using Proyecto1.Models;
-
-namespace Proyecto1.Repositiories
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Proyecto1.Repositiories;
+using Proyecto1.Data;
+using Proyecto1.Models;
+namespace Proyecto1.Repositories
 {
-    public class EmpleadoRepository
+    public class EmpleadoRepository : IEmpleadoRepository 
     {
+        private readonly AppDbContext _Dbcontext;
 
-        private static Dictionary<int, Empleado> _empleados = new Dictionary<int, Empleado>();
-        //Ayuda a encontrar cedulas en  O(1) y pasamos cedula por parametro a funcion buscar Empleado Por cedula
-        private static HashSet<int> _cedulas = new HashSet<int>();
-
-        //El model Binding de MVC me pide tener un constructor vacio
-
-
-
-
-        public static int AgregarEmpleado(Empleado empleado)
+        public EmpleadoRepository(AppDbContext context)
         {
-
-
-            if (_cedulas.Contains(empleado.Cedula.Value))
-            {
-
-                return -1;
-            }
-            _empleados.Add(empleado.Cedula.Value, empleado);
-            _cedulas.Add(empleado.Cedula.Value);
-
-
-            return _empleados.Count;
-
-        }
-        public static int EliminarEmpleado(int cedula)
-        {
-
-            bool cedulaExiste = _cedulas.Contains(cedula);
-
-            if (cedulaExiste)
-            {
-                _empleados.Remove(cedula);
-
-                return _empleados.Count();
-
-            }
-
-            return -1;
-
-
-        }
-        public static List<Empleado> MostrarEmpleados()
-        {
-
-            List<Empleado> listaEmpleado = new List<Empleado>();
-
-            if (_empleados.Count > 0)
-            {
-
-                foreach (var emp in _empleados.Values)
-                {
-
-                    listaEmpleado.Add(emp);
-                }
-
-            }
-
-            return listaEmpleado;
-
+            _Dbcontext = context;
         }
 
-        public static Empleado BuscarEmpleadoPorCedula(int cedula)
+        public async Task<int> AgregarEmpleado(Empleado empleado)
         {
+            int? cedula = empleado.Cedula.Value;
 
-
-            if (_cedulas.Contains(cedula))
+            if (await ExisteEmpleado(cedula.Value) != null)
             {
-
-                return _empleados[cedula];
+                return (int)ErroresEmpleado.EmpleadoYaExiste;
             }
 
-            return null;
+            await _Dbcontext.Empleados.AddAsync(empleado);
 
-        }
-
-
-        public static void ReemplazarEmpleado(Empleado nuevo)
-        {
-            //Todo esto tan solo funciona si se respeta la manera en la que se hizo el cliente.
-            if (ExisteEmpleado(nuevo.Cedula.Value))
+            int result = await _Dbcontext.SaveChangesAsync();
+            if (result == 0)
             {
-                _empleados[nuevo.Cedula.Value] = nuevo;
-
+                return (int)ErroresEmpleado.EmpleadoNoFueAgreado;
             }
 
+            return result;
         }
 
-        public static bool ExisteEmpleado(int cedula)
+        public async Task<Empleado>? ExisteEmpleado(int id)
         {
+            var empleado = await _Dbcontext.Empleados.FindAsync(id);
+            return empleado;
+        }
 
-            if (_cedulas.Contains(cedula))
+        public async Task<int> EliminarEmpleado(int id)
+        {
+            Empleado empleado = await ExisteEmpleado(id);
+
+            if (empleado != null)
             {
+                _Dbcontext.Remove(empleado);
 
-                return true;
+                int response = await _Dbcontext.SaveChangesAsync();
+
+                if (response > 0) return response;
+
+                return (int)ErroresEmpleado.EmpleadoNoFueEliminado;
             }
 
-
-            return false;
-
-
+            return (int)ErroresEmpleado.EmpleadoNoEncontrado;
         }
 
-         public static void inicializarEmpleadoPorDefecto()
+        public async Task<List<Empleado>> MostrarEmpleados()
         {
-            Empleado empleado = new Empleado 
+            return await _Dbcontext.Empleados.ToListAsync();
+        }
+
+        public async Task<Empleado> ObtenerEmpleadoPorId(int id)
+        {
+            return await ExisteEmpleado(id);
+        }
+
+        public async Task<int> ActualizarEmpleado(Empleado nuevoEmpleado)
+        {
+            _Dbcontext.Empleados.Update(nuevoEmpleado);
+
+            int result = await _Dbcontext.SaveChangesAsync();
+
+            return result;
+        }
+
+        public async Task InicializarEmpleadoPorDefecto()
+        {
+            Empleado empleado = new Empleado
             {
-                Cedula = 121333289,
-                FechaNacimiento = new DateTime(1995, 5, 20),
-                FechaIngreso = new DateTime(2020, 1, 15),
-                SalarioPorDia = 35000.00m,
-                DiasVacacionesAcumulados = 10,
-                FechaRetiro = new DateTime(2025, 6, 30),
-                MontoLiquidacion = 750000.00m
+                Cedula = 123456789,
+                FechaNacimiento = new DateTime(1990, 5, 20),
+                FechaIngreso = DateTime.Today.AddYears(-2),
+                SalarioPorDia = 30000m,
+                DiasVacacionesAcumulados = 15,
+                FechaRetiro = null, 
+                MontoLiquidacion = 0m
+       
             };
 
-      
-            EmpleadoRepository.AgregarEmpleado(empleado);
+            await _Dbcontext.Empleados.AddAsync(empleado);
+            await _Dbcontext.SaveChangesAsync();
         }
-        
-
-
-
-
-
     }
 }

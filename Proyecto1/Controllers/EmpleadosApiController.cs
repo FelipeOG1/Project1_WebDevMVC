@@ -8,8 +8,16 @@ namespace Proyecto1.Controllers
     [Route("api/empleados")]
     public class EmpleadosApiController : ControllerBase
     {
+
+         private readonly IEmpleadoRepository _empleadoRepository;
+        
+          public EmpleadosApiController(IEmpleadoRepository empleadoRepository)
+            {
+                _empleadoRepository = empleadoRepository;
+            }
+
         [HttpPost]
-        public IActionResult CrearEmpleado([FromBody] Empleado empleado)
+        public async Task<IActionResult>CrearEmpleado([FromBody] Empleado empleado)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -17,7 +25,7 @@ namespace Proyecto1.Controllers
             if (!empleado.Cedula.HasValue)
                 return BadRequest(new { Message = "El campo cédula es requerido" });
 
-            int response = EmpleadoRepository.AgregarEmpleado(empleado);
+            int response = await _empleadoRepository.AgregarEmpleado(empleado);
 
             if (response == -1)
                 return Conflict(new { Message = "Este empleado ya existe" });
@@ -26,9 +34,9 @@ namespace Proyecto1.Controllers
         }
 
         [HttpGet]
-        public IActionResult MostrarEmpleados()
+        public async Task<IActionResult> MostrarEmpleados()
         {
-            var lista = EmpleadoRepository.MostrarEmpleados();
+             List <Empleado> lista = await _empleadoRepository.MostrarEmpleados();
 
             if (lista.Count > 0)
             {
@@ -43,8 +51,10 @@ namespace Proyecto1.Controllers
             return Accepted(new { Message = "Todavía no se registra ningún empleado" });
         }
 
+        /*
+
         [HttpDelete]
-        public IActionResult EliminarEmpleado([FromQuery] int? id)
+        public async Task<IActionResult> EliminarEmpleado([FromQuery] int? id)
         {
             if (!id.HasValue)
                 return BadRequest(new { Message = "Se esperaba un id como query param" });
@@ -83,6 +93,7 @@ namespace Proyecto1.Controllers
 
             return NotFound(new { Message = "Empleado no encontrado" });
         }
+        */
     }
 }
 

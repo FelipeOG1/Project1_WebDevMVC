@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using Proyecto1.Data;
 using Microsoft.EntityFrameworkCore;
 using Proyecto1.Repositories;
+using Proyecto1.Repositiories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+
+builder.Services.AddScoped<IEmpleadoRepository, EmpleadoRepository>();
 
 var app = builder.Build();
 
