@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Proyecto1.Repositiories;
 using Proyecto1.Data;
 using Proyecto1.Models;
+using Microsoft.VisualBasic;
 namespace Proyecto1.Repositories
 {
     public class EmpleadoRepository : IEmpleadoRepository 
@@ -71,7 +72,19 @@ namespace Proyecto1.Repositories
 
         public async Task<int> ActualizarEmpleado(Empleado nuevoEmpleado)
         {
-            _Dbcontext.Empleados.Update(nuevoEmpleado);
+
+            Empleado empleado = await _Dbcontext.Empleados.FindAsync(nuevoEmpleado.Cedula);
+            
+            var atributos = nuevoEmpleado.GetType().GetProperties();
+
+            foreach (var atri in atributos)
+            {
+                if (atri.Name == "Cedula") continue;
+                string currentAtriName = atri.Name;
+                var currentAtriValue = typeof(Empleado).GetProperty(currentAtriName)?.GetValue(nuevoEmpleado);
+                typeof(Empleado).GetProperty(currentAtriName)?.SetValue(empleado,currentAtriValue);
+            
+            }
 
             int result = await _Dbcontext.SaveChangesAsync();
 

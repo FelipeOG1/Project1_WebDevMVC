@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
 using AspNetCoreGeneratedDocument;
 using Microsoft.AspNetCore.Mvc;
 using Proyecto1.Models;
 using Proyecto1.Repositiories;
+using Proyecto1.Repositories;
 
 namespace Proyecto1.Controllers
 {
@@ -27,8 +29,7 @@ namespace Proyecto1.Controllers
                 return BadRequest(new { Message = "El campo cédula es requerido" });
 
             int response = await _empleadoRepository.AgregarEmpleado(empleado);
-
-            if (response == -1)
+            if (response ==(int)ErroresEmpleado.EmpleadoYaExiste)
                 return Conflict(new { Message = "Este empleado ya existe" });
 
             return Ok(new { Message = "Empleado agregado con éxito" });
@@ -61,41 +62,53 @@ namespace Proyecto1.Controllers
                 return BadRequest(new { Message = "Se esperaba un id como query param" });
 
             int res = await _empleadoRepository.EliminarEmpleado(id.Value);
-
-            if (res != -1)
+            //En caso de exito res retorna el numero de filas afectadas
+            if (res > 0)
                 return Ok(new { Message = "Empleado eliminado correctamente" });
+            else if (res == (int)ErroresEmpleado.EmpleadoNoFueEliminado)
+            {
+                return Conflict(new { Message = "El empleado no pudo ser eliminado" });
 
-            return Conflict(new { Message = $"No existe ningún empleado con la cédula {id}" });
+
+
+            }
+            else
+            {
+
+                return Conflict(new { Message = $"No existe ningún empleado con la cédula {id}" });
+            }
+
         }
 
         [HttpPut]
-        public async Task<IActionResult> EditarEmpleado([FromBody] Empleado empleado)
+        public async Task<IActionResult> EditarEmpleado([FromBody] Empleado nuevoEmpleado)
         {
             if (!ModelState.IsValid)return BadRequest(ModelState);
 
-            Empleado tempEmpleado = await _empleadoRepository.ObtenerEmpleadoPorId(empleado.Cedula.Value);
+            Empleado empleado = await _empleadoRepository.ObtenerEmpleadoPorId(nuevoEmpleado.Cedula.Value);
 
-            if (tempEmpleado == null)
+            if (empleado == null)
             {
 
                 return BadRequest(new { Message = "No existe un empleado con ese id" });
                 
             }
-
-            int res = await _empleadoRepository.ActualizarEmpleado(empleado);
+            
+            
+            int res = await _empleadoRepository.ActualizarEmpleado(nuevoEmpleado);
 
             if (res == 0)
             {
-                return Ok(new { Message = "Empleado no fue ingresado de manera correcta"});
+                return Conflict(new { Message = "Empleado no fue editado"});
             }
             
-            return Ok(new { Message = "Empleado editado correctamente" });
+            return Ok(new { Message = $"Empleado editado con exito" });
         }
 
         [HttpGet("buscar")]
-        public IActionResult BuscarEmpleado([FromQuery] int id)
+        public async Task<IActionResult> BuscarEmpleado([FromQuery] int id)
         {
-            var emp = _empleadoRepository.ObtenerEmpleadoPorId(id);
+             Empleado emp = await _empleadoRepository.ObtenerEmpleadoPorId(id);
 
             if (emp != null)
                 return Ok(emp);
