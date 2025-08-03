@@ -56,7 +56,6 @@ namespace Proyecto1.Repositiories
         }
 
 
-
         public static int AgregarLavado(Lavado lav, TipoLavado tipo)
         {
 
@@ -68,14 +67,15 @@ namespace Proyecto1.Repositiories
 
             int id_cliente = lav.IdCLiente;
             string placa_vehiculo = lav.Placa;
+            /*
             bool respuestaVehiculo = VehiculoRepository.ExisteVehiculo(placa_vehiculo);
 
             Vehiculo clienteVehiculo = VehiculoRepository.BuscarVehiculoPorPlaca(placa_vehiculo);
 
-
+            */
 
             int currentId = idCounter++;
-            lav.vehiculo = clienteVehiculo;
+            //lav.vehiculo = clienteVehiculo;
             lav.Tipo = tipo;
             lav.Id = idCounter++;
             if (lav.Tipo.nombre == "La Joya")

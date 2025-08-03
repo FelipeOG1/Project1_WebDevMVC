@@ -30,6 +30,8 @@ builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 
 builder.Services.AddScoped<IEmpleadoRepository, EmpleadoRepository>();
 
+builder.Services.AddScoped<IVehiculoRepository, VehiculoRepository>();
+
 var app = builder.Build();
 
 

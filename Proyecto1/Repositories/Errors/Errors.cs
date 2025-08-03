@@ -9,7 +9,7 @@ namespace Proyecto1.Repositories
         clienteYaExiste = -5,
     }
 
-    public enum ErroresEmpleado 
+    public enum ErroresEmpleado
     {
         EmpleadoNoEncontrado = -1,
         EmpleadoNoFueEliminado = -2,
@@ -18,5 +18,13 @@ namespace Proyecto1.Repositories
         EmpleadoYaExiste = -5,
     }
 
+    public enum ErroresVehiculo
+    {
+    VehiculoNoEncontrado = -1,
+    VehiculoNoFueEliminado = -2,
+    VehiculoNoFueAgregado = -3,
+    VehiculoNoFueModificado = -4,
+    VehiculoYaExiste = -5,
+    }
 
 }

@@ -12,7 +12,7 @@ namespace Proyecto1.Controllers
     public class EmpleadosApiController : ControllerBase
     {
 
-         private readonly IEmpleadoRepository _empleadoRepository;
+          private readonly IEmpleadoRepository _empleadoRepository;
         
           public EmpleadosApiController(IEmpleadoRepository empleadoRepository)
             {
@@ -81,7 +81,7 @@ namespace Proyecto1.Controllers
         [HttpPut]
         public async Task<IActionResult> EditarEmpleado([FromBody] Empleado nuevoEmpleado)
         {
-            
+    
              if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -96,10 +96,7 @@ namespace Proyecto1.Controllers
             }
             else
             {
-
                 return Conflict(new { Message = "No existe un Empleado con ese id" });
-
-
             }
        }
 

@@ -133,7 +133,6 @@ namespace Proyecto1.Controllers
         public async Task<IActionResult>EditarCliente([FromBody] Cliente cliente)
         {
 
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

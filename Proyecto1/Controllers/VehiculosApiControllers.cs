@@ -4,91 +4,107 @@ using System;
 using System.Collections.Generic;
 using Proyecto1.Repositiories;
 using Proyecto1.Models;
+using Proyecto1.Repositories;
 namespace Proyecto1.Controllers
 {
     [ApiController]
     [Route("api/vehiculos")]
     public class VehiculosApiController : ControllerBase
     {
-        [HttpPost]
-        public IActionResult CrearVehiculo([FromBody] Vehiculo vehiculo)
+
+        private readonly IVehiculoRepository _vehiculoRepository;
+
+        public VehiculosApiController(IVehiculoRepository vehiculoRepository)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            if (string.IsNullOrWhiteSpace(vehiculo.Placa))
-                return BadRequest(new { Message = "El campo 'placa' es requerido" });
-
-            int response = VehiculoRepository.AgregarVehiculo(vehiculo);
-
-            if (response == -1)
-                return Conflict(new { Message = "Este vehículo ya existe" });
-
-            return Ok(new { Message = "Vehículo agregado con éxito" });
+            _vehiculoRepository = vehiculoRepository;
         }
 
-        [HttpGet]
-        public IActionResult MostrarVehiculos()
-        {
-            var lista = VehiculoRepository.MostrarVehiculos();
+            [HttpPost]
+    public async Task<IActionResult> CrearVehiculo([FromBody] Vehiculo vehiculo)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
 
-            if (lista.Count > 0)
+        if (string.IsNullOrWhiteSpace(vehiculo.Placa))
+            return BadRequest(new { Message = "El campo 'placa' es requerido" });
+
+        int response = await _vehiculoRepository.AgregarVehiculo(vehiculo);
+
+        if (response == (int)ErroresVehiculo.VehiculoYaExiste)
+            return Conflict(new { Message = "Este vehículo ya existe" });
+
+        return Ok(new { Message = "Vehículo agregado con éxito" });
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> MostrarVehiculos()
+    {
+        var lista = await _vehiculoRepository.MostrarVehiculos();
+
+        if (lista.Count > 0)
+        {
+            return Ok(new
             {
-                return Ok(new
-                {
-                    Status = 200,
-                    Count = lista.Count,
-                    Vehiculos = lista
-                });
-            }
-
-            return Accepted(new { Message = "Todavía no se registra ningún vehículo" });
+                Status = 200,
+                Count = lista.Count,
+                Vehiculos = lista
+            });
         }
 
-        [HttpDelete]
-        public IActionResult EliminarVehiculo([FromQuery] string placa)
-        {
-            if (string.IsNullOrWhiteSpace(placa))
-                return BadRequest(new { Message = "Se esperaba la placa como query param" });
+        return Accepted(new { Message = "Todavía no se registra ningún vehículo" });
+    }
 
-            int res = VehiculoRepository.EliminarVehiculo(placa);
+    [HttpDelete]
+    public async Task<IActionResult> EliminarVehiculo([FromQuery] string placa)
+    {
+        if (string.IsNullOrWhiteSpace(placa))
+            return BadRequest(new { Message = "Se esperaba la placa como query param" });
 
-            if (res != -1)
-                return Ok(new { Message = "Vehículo eliminado correctamente" });
+        int res = await _vehiculoRepository.EliminarVehiculo(placa);
 
-            return Conflict(new { Message = $"No existe ningún vehículo con la placa {placa}" });
-        }
+        if (res != (int)ErroresVehiculo.VehiculoNoEncontrado)
+            return Ok(new { Message = "Vehículo eliminado correctamente" });
 
-        [HttpPut]
-        public IActionResult EditarVehiculo([FromBody] Vehiculo vehiculo)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+        return Conflict(new { Message = $"No existe ningún vehículo con la placa {placa}" });
+    }
 
-            if (string.IsNullOrWhiteSpace(vehiculo.Placa))
-                return BadRequest(new { Message = "El campo 'placa' es requerido" });
+    [HttpPut]
+    public async Task<IActionResult> EditarVehiculo([FromBody] Vehiculo vehiculo)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
 
-            if (!VehiculoRepository.ExisteVehiculo(vehiculo.Placa))
-                return Conflict(new { Message = "No existe un vehículo con esa placa" });
+        if (string.IsNullOrWhiteSpace(vehiculo.Placa))
+            return BadRequest(new { Message = "El campo 'placa' es requerido" });
 
-            VehiculoRepository.ReemplazarVehiculo(vehiculo);
-            return Ok(new { Message = "Vehículo editado correctamente" });
-        }
+        int resultado = await _vehiculoRepository.ActualizarVehiculo(vehiculo);
+        if (resultado == 0)
+            return StatusCode(500, new { Message = "No se pudo actualizar el vehículo" });
 
-        [HttpGet("buscar")]
-        public IActionResult BuscarVehiculo([FromQuery] string placa)
-        {
-            if (string.IsNullOrWhiteSpace(placa))
-                return BadRequest(new { Message = "Se esperaba la placa como query param" });
+        return Ok(new { Message = "Vehículo editado correctamente" });
+    }
 
-            var vehiculo = VehiculoRepository.BuscarVehiculoPorPlaca(placa);
+    [HttpGet("buscar")]
+    public async Task<IActionResult> BuscarVehiculo([FromQuery] string placa)
+    {
+        if (string.IsNullOrWhiteSpace(placa))
+            return BadRequest(new { Message = "Se esperaba la placa como query param" });
 
-            if (vehiculo != null)
-                return Ok(vehiculo);
+        var vehiculo = await _vehiculoRepository.ObtenerVehiculoPorPlaca(placa);
 
-            return NotFound(new { Message = "Vehículo no encontrado" });
-        }
+        if (vehiculo != null)
+            return Ok(vehiculo);
+
+        return NotFound(new { Message = "Vehículo no encontrado" });
     }
 }
+
+
+
+
+
+
+
+    }
 
 

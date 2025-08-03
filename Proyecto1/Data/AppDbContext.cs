@@ -9,23 +9,13 @@ namespace Proyecto1.Data
     {
          public DbSet<Cliente> Clientes { get; set; }
          public DbSet<Empleado>Empleados {get;set;}
+         public DbSet<Vehiculo>Vehiculos { get; set;}
          public AppDbContext(DbContextOptions<AppDbContext> options)
-       : base(options)
+        : base(options)
 
 
-        {
-        }
-
-       
-
-        
-    
-        
-    
-    
-
-
-
+          {
+          }
 
    }
    

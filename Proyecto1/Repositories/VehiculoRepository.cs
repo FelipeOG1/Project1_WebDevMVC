@@ -1,115 +1,108 @@
-using System.Net.Sockets;
+
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics.Tracing;
+using System.Net;
+using System.Runtime.InteropServices;
+using Microsoft.EntityFrameworkCore.Query;
+using Proyecto1.Data;
 using Proyecto1.Models;
+using Microsoft.EntityFrameworkCore;
+using Proyecto1.Repositories;
+
 
 namespace Proyecto1.Repositiories
 {
-    public class VehiculoRepository
+    public class VehiculoRepository : IVehiculoRepository
     {
 
-        private static Dictionary<string, Vehiculo> _vehiculos = new Dictionary<string, Vehiculo>();
-        private static HashSet<string> _placas = new HashSet<string>();
+        private readonly AppDbContext _Dbcontext;
 
-
-        public static int AgregarVehiculo(Vehiculo vehiculo)
+        public VehiculoRepository(AppDbContext context)
         {
-            if (_placas.Contains(vehiculo.Placa))
+            _Dbcontext = context;
+        }
+
+        public async Task<int> AgregarVehiculo(Vehiculo vehiculo)
+        {
+            string placa = vehiculo.Placa;
+
+            if (await ExisteVehiculo(placa) != null)
             {
-                return -1;
+                return (int)ErroresVehiculo.VehiculoYaExiste;
             }
 
-            _vehiculos.Add(vehiculo.Placa, vehiculo);
-            _placas.Add(vehiculo.Placa);
+            await _Dbcontext.Vehiculos.AddAsync(vehiculo);
 
-            return _vehiculos.Count;
-        }
-
-        public static int EliminarVehiculo(string placa)
-        {
-            if (_placas.Contains(placa))
+            int result = await _Dbcontext.SaveChangesAsync();
+            if (result == 0)
             {
-                _placas.Remove(placa);
-                _vehiculos.Remove(placa);
-                return _vehiculos.Count;
+                return (int)ErroresVehiculo.VehiculoNoFueAgregado;
             }
 
-            return -1;
+            return result;
         }
 
-        public static List<Vehiculo> MostrarVehiculos()
+        public async Task<Vehiculo>? ExisteVehiculo(string placa)
         {
-            return _vehiculos.Values.ToList();
+            return await _Dbcontext.Vehiculos.FindAsync(placa);
         }
 
-        public static Vehiculo BuscarVehiculoPorPlaca(string placa)
+        public async Task<int> EliminarVehiculo(string placa)
         {
+            Vehiculo vehiculo = await ExisteVehiculo(placa);
 
-            if (ExisteVehiculo(placa))
+            if (vehiculo != null)
             {
+                _Dbcontext.Remove(vehiculo);
 
-                return _vehiculos[placa];
+                int response = await _Dbcontext.SaveChangesAsync();
+
+                if (response > 0) return response;
+
+                return (int)ErroresVehiculo.VehiculoNoFueEliminado;
             }
 
-            return null;
-
-
+            return (int)ErroresVehiculo.VehiculoNoEncontrado;
         }
 
-        public static bool ExisteVehiculo(string placa)
+        public async Task<List<Vehiculo>> MostrarVehiculos()
         {
-
-            if (_placas.Contains(placa)) return true;
-
-            return false;
-
-
+            return await _Dbcontext.Vehiculos.ToListAsync();
         }
 
-
-
-        public static Vehiculo ReemplazarVehiculo(Vehiculo ve)
+        public async Task<Vehiculo> ObtenerVehiculoPorPlaca(string placa)
         {
-
-            if (_placas.Contains(ve.Placa))
-            {
-                _vehiculos[ve.Placa] = ve;
-
-                return ve;
-
-
-            }
-
-
-            return null;
-
-            
-
+            return await ExisteVehiculo(placa);
         }
-        
 
-         public static void inicializarVehiculoorDefecto()
+        public async Task<int> ActualizarVehiculo(Vehiculo nuevoVehiculo)
         {
+            _Dbcontext.Vehiculos.Update(nuevoVehiculo);
+            int result = await _Dbcontext.SaveChangesAsync();
+            return result;
+        }
 
+        public async Task InicializarVehiculoPorDefecto()
+        {
             Vehiculo vehiculo = new Vehiculo
-        {
-            Placa = "ABC123",
-            Marca = "Toyota",
-            Modelo = "RAV4",
-            Traccion = "4x4",
-            Color = "Rojo",
-            UltimaFechaAtencion = new DateTime(2024, 12, 10),
-            TratamientoEspecialNano = true
-        };
+            {
+                Placa = "ABC123",
+                Marca = "Toyota",
+                Modelo = "Corolla",
+                Traccion = "Delantera",
+                Color = "Blanco",
+                UltimaFechaAtencion = DateTime.Now.AddMonths(-1),
+                TratamientoEspecialNano = true
+            };
 
-            VehiculoRepository.AgregarVehiculo(vehiculo);
+            await _Dbcontext.Vehiculos.AddAsync(vehiculo);
+            await _Dbcontext.SaveChangesAsync();
         }
 
 
 
-          
 
-
-
-        
 
 
 
