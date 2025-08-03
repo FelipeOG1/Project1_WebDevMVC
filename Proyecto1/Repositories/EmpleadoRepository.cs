@@ -87,11 +87,10 @@ namespace Proyecto1.Repositories
                 FechaIngreso = DateTime.Today.AddYears(-2),
                 SalarioPorDia = 30000m,
                 DiasVacacionesAcumulados = 15,
-                FechaRetiro = null, 
+                FechaRetiro = null, // Aún no se ha retirado
                 MontoLiquidacion = 0m
        
             };
-
             await _Dbcontext.Empleados.AddAsync(empleado);
             await _Dbcontext.SaveChangesAsync();
         }

@@ -1,3 +1,4 @@
+using AspNetCoreGeneratedDocument;
 using Microsoft.AspNetCore.Mvc;
 using Proyecto1.Models;
 using Proyecto1.Repositiories;
@@ -51,7 +52,7 @@ namespace Proyecto1.Controllers
             return Accepted(new { Message = "Todavía no se registra ningún empleado" });
         }
 
-        /*
+        
 
         [HttpDelete]
         public async Task<IActionResult> EliminarEmpleado([FromQuery] int? id)
@@ -59,7 +60,7 @@ namespace Proyecto1.Controllers
             if (!id.HasValue)
                 return BadRequest(new { Message = "Se esperaba un id como query param" });
 
-            int res = EmpleadoRepository.EliminarEmpleado(id.Value);
+            int res = await _empleadoRepository.EliminarEmpleado(id.Value);
 
             if (res != -1)
                 return Ok(new { Message = "Empleado eliminado correctamente" });
@@ -68,32 +69,40 @@ namespace Proyecto1.Controllers
         }
 
         [HttpPut]
-        public IActionResult EditarEmpleado([FromBody] Empleado empleado)
+        public async Task<IActionResult> EditarEmpleado([FromBody] Empleado empleado)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (!ModelState.IsValid)return BadRequest(ModelState);
 
-            if (!empleado.Cedula.HasValue)
-                return BadRequest(new { Message = "El campo cédula es requerido" });
+            Empleado tempEmpleado = await _empleadoRepository.ObtenerEmpleadoPorId(empleado.Cedula.Value);
 
-            if (!EmpleadoRepository.ExisteEmpleado(empleado.Cedula.Value))
-                return Conflict(new { Message = "No existe un empleado con esa cédula" });
+            if (tempEmpleado == null)
+            {
 
-            EmpleadoRepository.ReemplazarEmpleado(empleado);
+                return BadRequest(new { Message = "No existe un empleado con ese id" });
+                
+            }
+
+            int res = await _empleadoRepository.ActualizarEmpleado(empleado);
+
+            if (res == 0)
+            {
+                return Ok(new { Message = "Empleado no fue ingresado de manera correcta"});
+            }
+            
             return Ok(new { Message = "Empleado editado correctamente" });
         }
 
         [HttpGet("buscar")]
         public IActionResult BuscarEmpleado([FromQuery] int id)
         {
-            var emp = EmpleadoRepository.BuscarEmpleadoPorCedula(id);
+            var emp = _empleadoRepository.ObtenerEmpleadoPorId(id);
 
             if (emp != null)
                 return Ok(emp);
 
             return NotFound(new { Message = "Empleado no encontrado" });
         }
-        */
+        
     }
 }
 
