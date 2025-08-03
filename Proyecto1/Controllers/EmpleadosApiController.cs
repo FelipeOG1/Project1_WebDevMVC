@@ -69,8 +69,6 @@ namespace Proyecto1.Controllers
             {
                 return Conflict(new { Message = "El empleado no pudo ser eliminado" });
 
-
-
             }
             else
             {
@@ -83,27 +81,27 @@ namespace Proyecto1.Controllers
         [HttpPut]
         public async Task<IActionResult> EditarEmpleado([FromBody] Empleado nuevoEmpleado)
         {
-            if (!ModelState.IsValid)return BadRequest(ModelState);
-
-            Empleado empleado = await _empleadoRepository.ObtenerEmpleadoPorId(nuevoEmpleado.Cedula.Value);
-
-            if (empleado == null)
+            
+             if (!ModelState.IsValid)
             {
+                return BadRequest(ModelState);
 
-                return BadRequest(new { Message = "No existe un empleado con ese id" });
-                
             }
-            
-            
             int res = await _empleadoRepository.ActualizarEmpleado(nuevoEmpleado);
 
-            if (res == 0)
+            if (res != (int)ErroresEmpleado.EmpleadoNoEncontrado)
             {
-                return Conflict(new { Message = "Empleado no fue editado"});
+
+                return Ok(new { Message = "Empleado editado de manera correcta" });
             }
-            
-            return Ok(new { Message = $"Empleado editado con exito" });
-        }
+            else
+            {
+
+                return Conflict(new { Message = "No existe un Empleado con ese id" });
+
+
+            }
+       }
 
         [HttpGet("buscar")]
         public async Task<IActionResult> BuscarEmpleado([FromQuery] int id)

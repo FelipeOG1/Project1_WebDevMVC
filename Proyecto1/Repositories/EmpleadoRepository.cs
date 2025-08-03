@@ -72,23 +72,13 @@ namespace Proyecto1.Repositories
 
         public async Task<int> ActualizarEmpleado(Empleado nuevoEmpleado)
         {
-
-            Empleado empleado = await _Dbcontext.Empleados.FindAsync(nuevoEmpleado.Cedula);
-            
-            var atributos = nuevoEmpleado.GetType().GetProperties();
-
-            foreach (var atri in atributos)
-            {
-                if (atri.Name == "Cedula") continue;
-                string currentAtriName = atri.Name;
-                var currentAtriValue = typeof(Empleado).GetProperty(currentAtriName)?.GetValue(nuevoEmpleado);
-                typeof(Empleado).GetProperty(currentAtriName)?.SetValue(empleado,currentAtriValue);
-            
-            }
+             _Dbcontext.Empleados.Update(nuevoEmpleado);
 
             int result = await _Dbcontext.SaveChangesAsync();
 
             return result;
+
+           
         }
 
         public async Task InicializarEmpleadoPorDefecto()
