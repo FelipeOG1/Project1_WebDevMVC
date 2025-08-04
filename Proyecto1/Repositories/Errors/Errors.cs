@@ -20,11 +20,24 @@ namespace Proyecto1.Repositories
 
     public enum ErroresVehiculo
     {
-    VehiculoNoEncontrado = -1,
-    VehiculoNoFueEliminado = -2,
-    VehiculoNoFueAgregado = -3,
-    VehiculoNoFueModificado = -4,
-    VehiculoYaExiste = -5,
+        VehiculoNoEncontrado = -1,
+        VehiculoNoFueEliminado = -2,
+        VehiculoNoFueAgregado = -3,
+        VehiculoNoFueModificado = -4,
+        VehiculoYaExiste = -5,
     }
+
+    public enum ErroresLavado
+    {
+        LavadoNoEncontrado = -1,
+        LavadoNoFueEliminado = -2,
+        LavadoNoFueAgregado = -3,
+        LavadoNoFueModificado = -4,
+        LavadoYaExiste = -5,
+        ClienteOVehiculoNoExiste = -6,
+        LavadoNecesitaPrecio = -7,
+    }
+
+
 
 }

@@ -1,19 +1,22 @@
 
 using Proyecto1.Models;
-
-
-
+using Proyecto1.Data;
+using Proyecto1.Repositories;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 namespace Proyecto1.Repositiories
 {
 
-    public class LavadoRepository
+    public class LavadoRepository:ILavadoRepository
     {
 
 
-        private static int idCounter = 1;
-        private static Dictionary<int, Lavado> _lavados = new Dictionary<int, Lavado>();
-        private static HashSet<int> _ids = new HashSet<int>();
         private const decimal Iva = 0.13m;
+        private readonly AppDbContext _Dbcontext;
+        public LavadoRepository(AppDbContext context)
+        {
+            _Dbcontext = context;
+        }
 
         public static TipoLavado inicializarTipo(string name)
         {
@@ -55,35 +58,27 @@ namespace Proyecto1.Repositiories
             return tipo;
         }
 
-
-        public static int AgregarLavado(Lavado lav, TipoLavado tipo)
+        public async Task<int> AgregarLavado(Lavado lav, TipoLavado tipo)
         {
+            
+            int id_cliente = lav.ClienteIdentificacion.Value;
+            string placa_vehiculo = lav.VehiculoPlaca;
 
-            if (_ids.Contains(lav.Id))
+            Vehiculo vehiculo = await _Dbcontext.Vehiculos.FindAsync(placa_vehiculo);
+            Cliente cliente = await _Dbcontext.Clientes.FindAsync(id_cliente);
+
+            if (vehiculo == null || cliente == null)
             {
-
-                return -1;
+                return (int)ErroresLavado.ClienteOVehiculoNoExiste;
             }
-
-            int id_cliente = lav.IdCLiente;
-            string placa_vehiculo = lav.Placa;
-            /*
-            bool respuestaVehiculo = VehiculoRepository.ExisteVehiculo(placa_vehiculo);
-
-            Vehiculo clienteVehiculo = VehiculoRepository.BuscarVehiculoPorPlaca(placa_vehiculo);
-
-            */
-
-            int currentId = idCounter++;
-            //lav.vehiculo = clienteVehiculo;
+            lav.Vehiculo = vehiculo ;
             lav.Tipo = tipo;
-            lav.Id = idCounter++;
             if (lav.Tipo.nombre == "La Joya")
             {
 
                 if (!lav.precio.HasValue)
                 {
-                    return -1;
+                    return (int)ErroresLavado.LavadoNecesitaPrecio;
 
                 }
 
@@ -96,68 +91,64 @@ namespace Proyecto1.Repositiories
             }
 
             lav.precio_con_iva = obtenerPrecioConIva(lav.precio);
+            await _Dbcontext.Lavados.AddAsync(lav);
 
-            _lavados.Add(lav.Id, lav);
+            int result = await _Dbcontext.SaveChangesAsync();
 
-
-            _ids.Add(lav.Id);
-
-            return _lavados.Count;
-        }
-
-
-        public static bool ExisteLavado(int id)
-        {
-
-            if (_ids.Contains(id)) return true;
-
-            return false;
-
-
-        }
-
-        public static List<Lavado> MostrarLavados()
-        {
-
-            return _lavados.Values.ToList();
-
-        }
-
-        public static Lavado BucarLavadoPorId(int id)
-        {
-
-
-
-            if (ExisteLavado(id))
+            if (result == 0)
             {
-
-                return _lavados[id];
-
+                return (int)ErroresVehiculo.VehiculoNoFueAgregado;
             }
-            else
-            {
+        
+            return result;
+        }
 
-                return null;
-            }
+         public async Task<Lavado>? ExisteLavado(int id)
+         {
+            Lavado lavado = await _Dbcontext.Lavados.FindAsync(id);
+
+            return lavado;
+
+
+         }
+       
+       public async Task<List<Lavado>> MostrarLavados()
+        {
+
+            return await _Dbcontext.Lavados.ToListAsync();
         }
 
 
-        public static int ReemplazarLavado(Lavado nuevoLavado, TipoLavado tipo)
+        public async Task<Lavado> ObtenerLavadoPorId(int id)
         {
+            return await ExisteLavado(id);
+        }
 
+        public async Task<int> ActualizarLavado(Lavado nuevoLavado, TipoLavado tipo)
+        {
 
 
             int id = nuevoLavado.Id;
-            if (ExisteLavado(id))
+
+            Lavado  lavado= await ExisteLavado(id);
+
+            if (lavado != null)
             {
 
+                Vehiculo vehiculo = await _Dbcontext.Vehiculos.FindAsync(nuevoLavado.VehiculoPlaca);
+                Cliente cliente = await _Dbcontext.Clientes.FindAsync(nuevoLavado.ClienteIdentificacion);
+
+                if (vehiculo == null || cliente == null)
+                {
+                    return (int)ErroresLavado.ClienteOVehiculoNoExiste;
+                }
                 nuevoLavado.Tipo = tipo;
                 if (nuevoLavado.Tipo.nombre == "La Joya")
                 {
 
                     if (!nuevoLavado.precio.HasValue)
                     {
-                        return -1;
+                        return (int)ErroresLavado.LavadoNecesitaPrecio;
 
                     }
 
@@ -167,39 +158,60 @@ namespace Proyecto1.Repositiories
                 {
 
                     nuevoLavado.precio = tipo.precio;
+
                 }
 
                 nuevoLavado.precio_con_iva = obtenerPrecioConIva(nuevoLavado.precio);
 
 
-                _lavados[id] = nuevoLavado;
+                lavado.precio = nuevoLavado.precio;
+                lavado.precio_con_iva = nuevoLavado.precio_con_iva;
+                lavado.nombreTipo = nuevoLavado.nombreTipo;
+                lavado.VehiculoPlaca = nuevoLavado.VehiculoPlaca;
+                lavado.ClienteIdentificacion = nuevoLavado.ClienteIdentificacion;
+                lavado.Estado = nuevoLavado.Estado;
+                int result = await _Dbcontext.SaveChangesAsync();
 
-                return _lavados.Count();
+                if (result == 0)
+                {
+                    return (int)ErroresLavado.LavadoNoFueModificado;
+
+                }
+
+                return result;          
+                
 
 
             }
 
-            return -1;
+            return (int)ErroresLavado.LavadoNoEncontrado;
 
         }
 
-        public static int EliminarLavado(int id)
+         public async Task<int> EliminarLavado(int id)
         {
+            Lavado lavado = await ExisteLavado(id);
 
-            if (ExisteLavado(id))
+            if (lavado != null)
             {
-                _lavados.Remove(id);
+                //Esto solo cambia el estado en memoria a la acciòn que quiere ejecutar db. Por lo que aunque no se encontrase igual el state es deleted.
 
-                return _lavados.Count();
+                _Dbcontext.Remove(lavado);
+
+                //aqui si que podemos saber la cantidad de filas afectadas por lo que le resultado ahora se guarda dentro de un response
+                int response = await _Dbcontext.SaveChangesAsync();
+
+            
+
+                if (response > 0) return response;
+
+                return (int)ErroresLavado.LavadoNoFueEliminado;
             }
-            else
-            {
 
-                return -1;
-            }
-
-
+            return (int)ErroresLavado.LavadoNoEncontrado;
         }
+
+
 
         public static decimal obtenerPrecioConIva(decimal? precio)
         {
@@ -211,28 +223,21 @@ namespace Proyecto1.Repositiories
         }
 
 
-        public static void inicialiarLavadoPorDefecto()
+       public async Task InicializarLavadoPorDefecto()
         {
-
-            Lavado lavado = new Lavado
+         Lavado lavado = new Lavado
             {
-                Placa = "ABC123",
-                IdCLiente = 118540660,
-                Estado = EstadoLavado.EnProceso,
-                nombreTipo = "deluxe",
+            VehiculoPlaca = "ABC123",
+            ClienteIdentificacion = 118540660,
+            Estado = EstadoLavado.EnProceso,
+            nombreTipo = "Deluxe",
+            precio = 5000,
+            precio_con_iva = 5650
+        };
 
-            };
-
-            TipoLavado tipo = inicializarTipo(lavado.nombreTipo);
-
-            int res = LavadoRepository.AgregarLavado(lavado, tipo);
-
-            Console.WriteLine(res);
-            
-            
-        }
-
-     
+    await _Dbcontext.AddAsync(lavado);
+    await _Dbcontext.SaveChangesAsync();
+}
         
  
     }

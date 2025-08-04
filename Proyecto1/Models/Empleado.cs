@@ -17,7 +17,6 @@ namespace Proyecto1.Models
         [Required]
         public DateTime FechaIngreso { get; set; }
         [Required][Column(TypeName = "decimal(18,2)")]
-
         public decimal SalarioPorDia { get; set; }
         [Required]
         public int DiasVacacionesAcumulados { get; set; }

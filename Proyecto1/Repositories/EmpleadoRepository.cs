@@ -77,7 +77,6 @@ namespace Proyecto1.Repositories
             int result = await _Dbcontext.SaveChangesAsync();
 
             return result;
-
            
         }
 

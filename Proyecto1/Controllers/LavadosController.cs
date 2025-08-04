@@ -117,7 +117,7 @@ namespace Proyecto1.Controllers
        async public Task<IActionResult> EditarLavado(int id)
         {
 
-             HttpResponseMessage response = await _httpClient.GetAsync($"{URL}/buscar/?id={id}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{URL}/buscar/?id={id}");
 
             
             int res = (int)response.StatusCode;
@@ -129,6 +129,8 @@ namespace Proyecto1.Controllers
 
                 case 200:
                     string json_string = await response.Content.ReadAsStringAsync();
+
+                    Console.WriteLine(json_string);
 
                     lavado = JsonSerializer.Deserialize<Lavado>(json_string, options);
 
