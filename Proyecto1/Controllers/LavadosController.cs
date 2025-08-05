@@ -112,7 +112,6 @@ namespace Proyecto1.Controllers
 
         }
 
-
         [HttpGet]
        async public Task<IActionResult> EditarLavado(int id)
         {

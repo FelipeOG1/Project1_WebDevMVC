@@ -24,7 +24,7 @@ namespace Proyecto1.Models
         public DateTime? FechaRetiro { get; set; }
         [Required][Column(TypeName = "decimal(18,2)")]
 
-       public decimal MontoLiquidacion { get; set; }
+        public decimal MontoLiquidacion { get; set; }
        
         public Empleado() { }
 
